@@ -9,7 +9,7 @@ const PatternLanguage = Parsimmon.createLanguage({
     return Parsimmon.alt(L.Token, L.Literal).many();
   },
 
-  Token(L) {
+  Token() {
     return Parsimmon.alt(
       Parsimmon.string("*"),
       Parsimmon.regexp(/[^{}]*/).wrap(
@@ -81,37 +81,56 @@ function parseURL(url) {
   return URLLanguage.URL.tryParse(url);
 }
 
-function match(pattern, target) {
+function matchOrigin(pattern, target) {
   try {
     const patternURL = parseURL(pattern);
     const targetURL = parseURL(target);
-    const matchOrigin = matchPart({
+    return matchPart({
       pattern: parsePattern(patternURL.origin),
       target: targetURL.origin,
       separators: ":."
     });
-    const matchPathname = matchPart({
+  } catch (err) {
+    if (err.type === "ParsimmonError") {
+      return undefined;
+    }
+    throw err;
+  }
+}
+
+function matchURL(pattern, target) {
+  try {
+    const patternURL = parseURL(pattern);
+    const targetURL = parseURL(target);
+    const originMatch = matchPart({
+      pattern: parsePattern(patternURL.origin),
+      target: targetURL.origin,
+      separators: ":."
+    });
+    const pathnameMatch = matchPart({
       pattern: parsePattern(decodeURIComponent(patternURL.pathname)),
       target: decodeURIComponent(targetURL.pathname),
       separators: "/"
     });
-    const matchSearch = matchPart({
+    const searchMatch = matchPart({
       pattern: parsePattern(patternURL.search),
       target: targetURL.search,
       separators: "&="
     });
     const match = {
-      ...matchOrigin,
-      ...matchPathname,
-      ...matchSearch
+      ...originMatch,
+      ...pathnameMatch,
+      ...searchMatch
     };
     if (Object.keys(match).length === 0) {
       return undefined;
     }
     return match;
   } catch (err) {
-    console.log(err);
-    return undefined;
+    if (err.type === "ParsimmonError") {
+      return undefined;
+    }
+    throw err;
   }
 }
 
