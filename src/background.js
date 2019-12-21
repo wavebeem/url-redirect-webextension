@@ -66,6 +66,16 @@ browser.webRequest.onHeadersReceived.addListener(
 //   });
 // });
 
+browser.browserAction.setBadgeText({
+  text: "123456789",
+  tabId: undefined
+});
+
+browser.browserAction.setBadgeColor({
+  color: "#ff00ff",
+  tabId: undefined
+});
+
 function updateConfig(newConfig) {
   console.log("new config", newConfig);
   localStorage.setItem("config", JSON.stringify(newConfig, null, 2));

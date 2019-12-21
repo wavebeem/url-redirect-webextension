@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "description": "TODO: Description",
+  "description": "URL Switcher allows you to redirect one URL to another",
   "name": "url-switcher",
   "version": "1.0",
   "homepage_url": "https://github.com/wavebeem/url-switcher-webextension",
