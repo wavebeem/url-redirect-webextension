@@ -7,7 +7,7 @@
     <title>URL Switcher - Configure</title>
     <link rel="stylesheet" href="../lib/tachyons-4.10.0.min.css" />
   </head>
-  <body class="sans-serif pa2">
+  <body class="helvetica pa2">
     <h1>URL Switcher</h1>
     <p>&copy; 2019 <a href="https://mockbrian.com">Brian Mock</a></p>
     <p>
@@ -24,13 +24,17 @@
       </p>
       <div v-for="(obj, index) in config.removeCSP">
         <hr />
-        <input class="db w-100 code" v-model="obj.originPattern" />
-        <button class="db" type="button" v-on:click="removeCSPByIndex(index)">
-          Remove
+        <input v-bind:class="css.input" v-model="obj.originPattern" />
+        <button
+          v-bind:class="css.remove"
+          type="button"
+          v-on:click="removeCSPByIndex(index)"
+        >
+          Remove CSP Rule
         </button>
       </div>
       <hr />
-      <button type="button" v-on:click="addCSP()">Add</button>
+      <button v-bind:class="css.add" type="button" v-on:click="addCSP()">Add CSP Rule</button>
       <h2>Redirect URLs</h2>
       <p>
         Pattern matching is allowed for URLs. You can use <code>*</code> to
@@ -44,18 +48,18 @@
       </p>
       <div v-for="(obj, index) in config.redirect">
         <hr />
-        <input class="db w-100 code" v-model="obj.fromPattern" />
-        <input class="db w-100 code" v-model="obj.toPattern" />
+        <input v-bind:class="css.input" v-model="obj.fromPattern" />
+        <input v-bind:class="css.input" v-model="obj.toPattern" />
         <button
-          class="db"
+          v-bind:class="css.remove"
           type="button"
           v-on:click="removeRedirectByIndex(index)"
         >
-          Remove
+          Remove Redirect Rule
         </button>
       </div>
       <hr />
-      <button type="button" v-on:click="addRedirect()">Add</button>
+      <button v-bind:class="css.add" type="button" v-on:click="addRedirect()">Add  Redirect Rule</button>
       <pre>{{ configJSON }}</pre>
     </div>
     <script type="module" src="configure.js"></script>
