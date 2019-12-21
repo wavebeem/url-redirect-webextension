@@ -23,8 +23,10 @@
   },
 
   "browser_action": {
-    "default_icon": "img/icon-32.png",
     "default_title": "URL Switcher",
-    "default_popup": "src/popup.html"
+    "default_icon": {
+      "32": "img/icon-32.png",
+      "48": "img/icon-48.png"
+    }
   }
 }
