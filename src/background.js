@@ -237,8 +237,8 @@ browser.tabs.onRemoved.addListener(handlers.onRemoved);
 browser.tabs.onUpdated.addListener(handlers.onUpdated);
 browser.browserAction.onClicked.addListener(handlers.onClicked);
 
-function updateConfig(newConfig) {
-  localStorage.setItem("config", JSON.stringify(newConfig, null, 2));
+function updateConfig(json) {
+  localStorage.setItem("config", json);
   config = getConfig();
 }
 
@@ -253,6 +253,10 @@ function getConfig() {
           fromPattern:
             "https://storage.googleapis.com/meridian-editor-frontend/*/{file}",
           toPattern: "https://localhost:9001/{file}"
+        },
+        {
+          fromPattern: "https://internet.com/meridian-editor-frontend/*/{file}",
+          toPattern: "https://localhost:8001/{file}"
         }
       ]
     };

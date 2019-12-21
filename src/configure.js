@@ -3,16 +3,32 @@
 import Vue from "../lib/vue-2.6.11.min.js";
 
 const page = browser.extension.getBackgroundPage();
-console.log(page);
-// page.updateConfig(page.getConfig());
-console.log(page.getConfig());
 
 const app = new Vue({
   el: "#app",
+
   data: {
-    text: "Hi",
     config: page.getConfig()
   },
+
+  methods: {
+    addCSP() {
+      this.config.removeCSP.push({ originPattern: "" });
+    },
+
+    removeCSPByIndex(index) {
+      this.config.removeCSP.splice(index, 1);
+    },
+
+    addRedirect() {
+      this.config.redirect.push({ fromPattern: "", toPattern: "" });
+    },
+
+    removeRedirectByIndex(index) {
+      this.config.redirect.splice(index, 1);
+    }
+  },
+
   computed: {
     configJSON() {
       return JSON.stringify(this.config, null, 2);
@@ -20,6 +36,8 @@ const app = new Vue({
   }
 });
 
-console.log(app);
+app.$watch("configJSON", json => {
+  page.updateConfig(json);
+});
 
 Object.assign(globalThis, { app });

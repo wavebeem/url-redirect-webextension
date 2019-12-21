@@ -1,19 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>URL Switcher - Configure</title>
-</head>
-<body>
-  <h1>URL</h1>
-  <div id="app">
-    <pre>{{ configJSON }}</pre>
-  </div>
-  <footer>
-    Copyright &copy; <a href="https://mockbrian.com">Brian Mock 2019</a>
-  </footer>
-  <script type="module" src="configure.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>URL Switcher - Configure</title>
+    <link rel="stylesheet" href="../lib/tachyons-4.10.0.min.css" />
+  </head>
+  <body class="sans-serif pa2">
+    <h1>URL Switcher</h1>
+    <p>&copy; 2019 <a href="https://mockbrian.com">Brian Mock</a></p>
+    <p>
+      Note that the browser cache can interfere with URL Switcher. You can
+      bypass the browser cache via a setting in the DevTools, as well as holding
+      Shift while refreshing the page.
+    </p>
+    <div id="app">
+      <h2>Remove CSP (Content-Security-Policy)</h2>
+      <p>
+        Examples:
+        <code>https://google.com</code> This will disable CSP on google.com, but
+        not mail.google.com, and only when using HTTPS, not plain HTTP.
+      </p>
+      <div v-for="(obj, index) in config.removeCSP">
+        <hr />
+        <input class="db w-100 code" v-model="obj.originPattern" />
+        <button class="db" type="button" v-on:click="removeCSPByIndex(index)">
+          Remove
+        </button>
+      </div>
+      <hr />
+      <button type="button" v-on:click="addCSP()">Add</button>
+      <h2>Redirect URLs</h2>
+      <p>
+        Pattern matching is allowed for URLs. You can use <code>*</code> to
+        match a URL chunk (a protocol, subdomain, section of a path, or a query
+        string key or value).
+      </p>
+      <p>
+        You can also use <code>{name}</code> to capture the value from the
+        pattern matched. You can use this value in the "To" field by using the
+        same syntax. You can use as many names as you want.
+      </p>
+      <div v-for="(obj, index) in config.redirect">
+        <hr />
+        <input class="db w-100 code" v-model="obj.fromPattern" />
+        <input class="db w-100 code" v-model="obj.toPattern" />
+        <button
+          class="db"
+          type="button"
+          v-on:click="removeRedirectByIndex(index)"
+        >
+          Remove
+        </button>
+      </div>
+      <hr />
+      <button type="button" v-on:click="addRedirect()">Add</button>
+      <pre>{{ configJSON }}</pre>
+    </div>
+    <script type="module" src="configure.js"></script>
+  </body>
 </html>
