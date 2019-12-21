@@ -1,6 +1,7 @@
 - [x] Test removing CSP
 - [x] Test redirecting URLs
-- [ ] Keep counts of redirected URLs per tab
+- [ ] Check if document URL matches
+- [x] Keep counts of redirected URLs per tab
 - [ ] Show if CSP was disabled per tab
 - [ ] Make a real icon for the toolbar that isn't bad
 - [ ] Make a settings page (Vue.js?)
