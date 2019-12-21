@@ -42,29 +42,9 @@ browser.webRequest.onHeadersReceived.addListener(
   ["blocking", "responseHeaders"]
 );
 
-// --- TODO ---
-//
-// Make the toolbar icon click to open settings in a new tab instead.
-
-// browser.runtime.openOptionsPage();
-
-// chrome.browserAction.onClicked.addListener(function() {
-//   // open or focus options page.
-//   const optionsUrl = chrome.runtime.getURL("src/ui/devtoolstab.html");
-//   chrome.tabs.query({}, function(extensionTabs) {
-//       let found = false;
-//       for (let i = 0, len = extensionTabs.length; i < len; i++) {
-//           if (optionsUrl === extensionTabs[i].url) {
-//               found = true;
-//               chrome.tabs.update(extensionTabs[i].id, {selected: true});
-//               break;
-//           }
-//       }
-//       if (found === false) {
-//           chrome.tabs.create({url: optionsUrl});
-//       }
-//   });
-// });
+browser.browserAction.onClicked.addListener(() => {
+  browser.tabs.create({ url: browser.runtime.getURL("src/configure.html") });
+});
 
 browser.browserAction.setBadgeText({
   text: "123456789",

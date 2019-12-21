@@ -18,6 +18,8 @@
 
   "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"],
 
+  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval'",
+
   "background": {
     "scripts": ["lib/webextension-polyfill-0.5.0.min.js", "src/background.js"]
   },
