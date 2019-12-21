@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "description": "TODO: Description",
+  "name": "url-switcher",
+  "version": "1.0",
+  "homepage_url": "https://github.com/wavebeem/url-switcher-webextension",
+
+  "applications": {
+    "gecko": {
+      "id": "url-switcher@mockbrian.com"
+    }
+  },
+
+  "icons": {
+    "32": "img/icon-32.png",
+    "48": "img/icon-48.png"
+  },
+
+  "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"],
+
+  "background": {
+    "scripts": ["lib/webextension-polyfill-0.5.0.min.js", "src/background.js"]
+  },
+
+  "browser_action": {
+    "default_icon": "img/icon-32.png",
+    "default_title": "URL Switcher",
+    "default_popup": "src/popup.html"
+  }
+}
