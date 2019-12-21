@@ -81,6 +81,19 @@ function parseURL(url) {
   return URLLanguage.URL.tryParse(url);
 }
 
+function replaceURL(pattern, match) {
+  return parsePattern(pattern)
+    .map(p => {
+      if (p.name === "Token") {
+        return match[p.value];
+      } else if (p.name === "Literal") {
+        return p.value;
+      }
+      throw new Error(`unknown pattern type: ${p.name}`);
+    })
+    .join("");
+}
+
 function matchOrigin(pattern, target) {
   try {
     const patternURL = parseURL(pattern);
@@ -174,18 +187,15 @@ const handlers = {
   },
 
   onBeforeRequest(event) {
-    console.log("onBeforeRequest", event);
     const { url, tabId } = event;
-    if (
-      url ===
-      "https://storage.googleapis.com/meridian-editor-frontend/3.36.0-build.3/index.bundle.js"
-    ) {
-      const data = getTabData(tabId);
-      data.redirectCount++;
-      updateTabBadge(tabId, data);
-      return {
-        redirectUrl: "https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"
-      };
+    for (const obj of config.redirect) {
+      const match = matchURL(obj.fromPattern, url);
+      if (match) {
+        const data = getTabData(tabId);
+        data.redirectCount++;
+        updateTabBadge(tabId, data);
+        return { redirectUrl: replaceURL(obj.toPattern, match) };
+      }
     }
     return {};
   },
@@ -195,7 +205,12 @@ const handlers = {
       return {};
     }
     const { url, responseHeaders, tabId } = event;
-    console.log("onHeadersReceived", url);
+    const matches = config.removeCSP.some(obj => {
+      return matchOrigin(obj.originPattern, url);
+    });
+    if (!matches) {
+      return {};
+    }
     return {
       responseHeaders: responseHeaders.filter(header => {
         if (header.name.toLowerCase() === "content-security-policy") {
@@ -223,8 +238,8 @@ browser.tabs.onUpdated.addListener(handlers.onUpdated);
 browser.browserAction.onClicked.addListener(handlers.onClicked);
 
 function updateConfig(newConfig) {
-  console.log("new config", newConfig);
   localStorage.setItem("config", JSON.stringify(newConfig, null, 2));
+  config = getConfig();
 }
 
 function getConfig() {
@@ -232,9 +247,17 @@ function getConfig() {
   if (!json) {
     return {
       version: "1",
-      remove_csp_patterns: [],
-      redirect_patterns: []
+      removeCSP: [{ originPattern: "*://*.meridianapps.com" }],
+      redirect: [
+        {
+          fromPattern:
+            "https://storage.googleapis.com/meridian-editor-frontend/*/{file}",
+          toPattern: "https://localhost:9001/{file}"
+        }
+      ]
     };
   }
   return JSON.parse(json);
 }
+
+let config = getConfig();
