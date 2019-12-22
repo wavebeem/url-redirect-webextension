@@ -33,34 +33,28 @@
         <table v-bind:class="css.table">
           <thead>
             <tr v-bind:class="css.row">
-              <th v-bind:class="css.th">Origin Pattern</th>
               <th v-bind:class="css.th">Enabled</th>
+              <th v-bind:class="css.th">Origin Pattern</th>
               <th v-bind:class="css.th">Remove</th>
             </tr>
           </thead>
           <tbody>
               <tr v-for="(obj, index) in config.removeCSP" v-bind:class="css.row">
                 <td>
-                  <!-- <label v-bind:for="'removeCSP-' + index" v-bind:class="css.label"
-                    >CSP Origin</label
-                  > -->
-                  <input
-                    aria-label="Origin Pattern"
-                    v-bind:id="'removeCSP-' + index"
-                    v-bind:class="css.input"
-                    v-model="obj.originPattern"
-                  />
-                </td><td>
-                  <!-- <label
-                    v-bind:for="'remove-CSP-enabled-' + index"
-                    v-bind:class="css.checkboxLabel"
-                  >Enabled</label> -->
                   <input
                     aria-label="Enabled"
                     v-bind:id="'remove-CSP-enabled-' + index"
                     v-bind:class="css.checkbox"
                     type="checkbox"
                     v-model="obj.enabled"
+                  />
+                </td>
+                <td>
+                  <input
+                    aria-label="Origin Pattern"
+                    v-bind:id="'removeCSP-' + index"
+                    v-bind:class="css.input"
+                    v-model="obj.originPattern"
                   />
                 </td><td>
                   <button
@@ -70,7 +64,6 @@
                     v-on:click="removeCSPByIndex(index)"
                     title="Remove CSP rule"
                   >
-                    &times;
                   </button>
                 </td><td>
               </td>
@@ -96,7 +89,10 @@
           same syntax. You can use as many names as you want.
         </p>
         <div v-for="(obj, index) in config.redirect" v-bind:class="css.card">
+            <input type="checkbox" v-model="obj.enabled" v-bind:class="css.checkbox" />
+
           <div class="flex-auto">
+
           <label v-bind:for="'redirect-from-' + index" v-bind:class="css.label"
             >Redirect from pattern</label
           >
@@ -116,14 +112,12 @@
             v-model="obj.toPattern"
           />
         </div>
-        <input type="checkbox" v-model="obj.enabled" v-bind:class="css.checkbox" />
             <button
             aria-label="Remove redirect rule"
               v-bind:class="css.remove"
               type="button"
               v-on:click="removeRedirectByIndex(index)"
             >
-              &times;
             </button>
           </div>
         </div>

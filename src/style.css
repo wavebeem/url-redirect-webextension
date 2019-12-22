@@ -1,32 +1,31 @@
 :root {
   --Focus-Color: #357edd;
+  --Focus-Color-Outline: #96ccff;
+  --Rem-1-4: 0.25rem;
+  --Rem-1-8: 0.125rem;
+  --Rem-1-16: 0.0625rem;
 }
 
 .Focus-Border:focus {
   outline: 0;
-  border-color: #357edd;
-  box-shadow: inset 0 0 0 0.125rem white, 0 0 0 0.125rem #96ccff;
+  border-color: var(--Focus-Color);
+  box-shadow: inset 0 0 0 var(--Rem-1-16) white,
+    0 0 0 var(--Rem-1-8) var(--Focus-Color-Outline);
 }
 
-.Hover-Dim-75:hover {
-  opacity: 0.75;
-}
-
-.Hover-Dim-50:hover {
-  opacity: 0.5;
-}
-
-.Checkbox {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border-radius: 2px;
-  width: 1.5em;
-  height: 1.5em;
-  border: 1px solid #888;
-  background: white;
+.Remove {
+  background-image: url(/src/remove.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .Checkbox:checked {
-  background: #444 url(/src/checked.svg);
+  background: var(--Focus-Color) center / contain no-repeat
+    url(/src/checked.svg);
   background-size: contain;
+}
+
+.Checkbox:checked:hover {
+  box-shadow: inset 0 0 0 var(--Rem-1-16) white;
 }

@@ -18,7 +18,7 @@
 
   "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"],
 
-  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval'",
+  "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'",
 
   "background": {
     "scripts": [
