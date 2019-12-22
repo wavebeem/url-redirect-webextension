@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>URL Switcher - Configure</title>
+    <title>URL Switcher</title>
     <link rel="stylesheet" href="../lib/tachyons-4.10.0.min.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -13,7 +13,7 @@
   >
     <div id="app">
       <header class="Header">
-        <h1 class="Content mv0 lh-title">URL Switcher</h1>
+        <h1 class="Content mv0 lh-title H1">URL Switcher</h1>
         <p class="Content mv0">
           &copy; 2019
           <a href="https://mockbrian.com" class="black hover-gray"
@@ -35,14 +35,14 @@
           <label for="config-enabled" class="Label">Enable URL Switcher</label>
         </div>
       </header>
-      <main class="center mw7 pa2 dark-gray tc" v-if="!config.enabled">
-        URL Switcher is disabled
-      </main>
       <main class="center mw7" v-if="config.enabled">
         <section>
           <h2 class="H2">Import / Export Settings</h2>
-          <button class="Button Focus-Border" type="button">Import...</button>
-          <button class="Button Focus-Border" type="button">Export...</button>
+          <div class="flex">
+            <button class="Button Focus-Border" type="button">Import...</button>
+            <div class="PaddingLeft-Separator"></div>
+            <button class="Button Focus-Border" type="button">Export...</button>
+          </div>
         </section>
         <section>
           <h2 class="H2">Remove CSP Rules</h2>
@@ -73,8 +73,10 @@
                 Remove
               </button>
             </div>
-            <div class="PaddingLeft">
-              <label v-bind:for="'removeCSP-origin-' + index" class="Label"
+            <div class="PaddingLeft Field">
+              <label
+                v-bind:for="'removeCSP-origin-' + index"
+                class="Label Label-Field"
                 >Origin</label
               >
               <input
@@ -126,8 +128,10 @@
                 Remove
               </button>
             </div>
-            <div class="flex-auto PaddingLeft">
-              <label v-bind:for="'redirect-from-' + index" class="Label"
+            <div class="flex-auto PaddingLeft Field">
+              <label
+                v-bind:for="'redirect-from-' + index"
+                class="Label Label-Field"
                 >From</label
               >
               <input
@@ -136,8 +140,10 @@
                 v-model="obj.fromPattern"
               />
             </div>
-            <div class="flex-auto PaddingLeft">
-              <label v-bind:for="'redirect-to-' + index" class="Label"
+            <div class="flex-auto PaddingLeft Field">
+              <label
+                v-bind:for="'redirect-to-' + index"
+                class="Label Label-Field"
                 >To</label
               >
               <input

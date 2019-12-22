@@ -1,11 +1,12 @@
 - [x] Test removing CSP
 - [x] Test redirecting URLs
-- [ ] Check if document URL matches
 - [x] Keep counts of redirected URLs per tab
-- [ ] Show if CSP was disabled per tab
+- [x] Show if CSP was disabled per tab
 - [ ] Make a real icon for the toolbar that isn't bad
-- [ ] Make a settings page (Vue.js?)
-- [ ] Make a match/replace engine
+- [ ] Make an icon for when it's disabled too
+- [x] Make a settings page (Vue.js?)
+- [ ] Import/export settings, schema validation
+- [x] Make a match/replace engine
 
 Given we only get 4 characters in a badge, I think a symbol to show if CSP was disabled is sufficient, as well as a count of blocked files, capping at 99+
 

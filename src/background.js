@@ -148,14 +148,11 @@ function matchURL(pattern, target) {
 }
 
 function updateTabBadge(tabId, tabData) {
-  browser.browserAction.setBadgeText({
-    text: `${tabData.cspDisabled ? "*" : ""}${tabData.redirectCount}`,
-    tabId
-  });
-  browser.browserAction.setBadgeBackgroundColor({
-    color: tabData.cspDisabled ? "#0c0" : "#444",
-    tabId
-  });
+  const { cspDisabled, redirectCount } = tabData;
+  const text = String(redirectCount);
+  const color = cspDisabled ? "#c00" : "#444";
+  browser.browserAction.setBadgeText({ text, tabId });
+  browser.browserAction.setBadgeBackgroundColor({ color, tabId });
 }
 
 function getTabData(tabId) {
@@ -177,7 +174,7 @@ const handlers = {
   },
 
   onUpdated(tabId, changeInfo /*, tab */) {
-    if (changeInfo.status === "loading" || changeInfo.status === "loading") {
+    if (changeInfo.status === "complete") {
       tabData.delete(tabId);
     }
   },
@@ -220,7 +217,9 @@ const handlers = {
     return {
       responseHeaders: responseHeaders.filter(header => {
         if (header.name.toLowerCase() === "content-security-policy") {
-          getTabData(tabId).cspDisabled = true;
+          const data = getTabData(tabId);
+          data.cspDisabled = true;
+          updateTabBadge(tabId, data);
           return false;
         }
         return true;
