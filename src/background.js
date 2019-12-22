@@ -187,6 +187,9 @@ const handlers = {
   },
 
   onBeforeRequest(event) {
+    if (!config.enabled) {
+      return {};
+    }
     const { url, tabId } = event;
     for (const obj of config.redirect) {
       const match = matchURL(obj.fromPattern, url);
@@ -201,6 +204,9 @@ const handlers = {
   },
 
   onHeadersReceived(event) {
+    if (!config.enabled) {
+      return {};
+    }
     if (!event.responseHeaders) {
       return {};
     }
@@ -246,15 +252,18 @@ function getConfig() {
   const json = localStorage.getItem("config");
   if (!json) {
     return {
-      version: "1",
-      removeCSP: [{ originPattern: "*://*.meridianapps.com" }],
+      configSchemaVersion: 1,
+      enabled: true,
+      removeCSP: [{ enabled: true, originPattern: "*://*.meridianapps.com" }],
       redirect: [
         {
+          enabled: true,
           fromPattern:
             "https://storage.googleapis.com/meridian-editor-frontend/*/{file}",
           toPattern: "https://localhost:9001/{file}"
         },
         {
+          enabled: true,
           fromPattern: "https://internet.com/meridian-editor-frontend/*/{file}",
           toPattern: "https://localhost:8001/{file}"
         }
