@@ -15,3 +15,18 @@
 .Hover-Dim-50:hover {
   opacity: 0.5;
 }
+
+.Checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 2px;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid #888;
+  background: white;
+}
+
+.Checkbox:checked {
+  background: #444 url(/src/checked.svg);
+  background-size: contain;
+}

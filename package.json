@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/wavebeem/url-switcher-webextension#readme",
   "devDependencies": {
+    "prettier": "^1.19.1",
     "web-ext": "^3.2.1"
   }
 }

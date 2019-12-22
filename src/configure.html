@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../lib/tachyons-4.10.0.min.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="helvetica pa2 lh-copy near-black bg-near-white">
+  <body class="helvetica pa2 lh-copy near-black bg-near-white f5">
     <header class="center mw7 ph2">
       <h1 class="mv0 lh-title">URL Switcher</h1>
       <p class="mv0">
@@ -21,39 +21,70 @@
         holding Shift while refreshing the page.
       </p>
     </header>
-
+    <hr class="b--black-10" />
     <main id="app" class="center mw7 ph2">
       <section>
-        <h2>Remove CSP (Content-Security-Policy)</h2>
+        <h2 v-bind:class="css.h2">Remove CSP (Content-Security-Policy)</h2>
         <p>
           Examples:
           <code>https://google.com</code> This will disable CSP on google.com,
           but not mail.google.com, and only when using HTTPS, not plain HTTP.
         </p>
-        <div v-for="(obj, index) in config.removeCSP" class="bl bw1 mv3 pl3">
-          <label v-bind:for="'removeCSP-' + index" v-bind:class="css.label"
-            >CSP Origin</label
-          >
-          <input
-            v-bind:id="'removeCSP-' + index"
-            v-bind:class="css.input"
-            v-model="obj.originPattern"
-          />
-            <button
-              v-bind:class="css.remove"
-              type="button"
-              v-on:click="removeCSPByIndex(index)"
-            >
-              Remove CSP rule
-            </button>
-        </div>
+        <table v-bind:class="css.table">
+          <thead>
+            <tr v-bind:class="css.row">
+              <th v-bind:class="css.th">Origin Pattern</th>
+              <th v-bind:class="css.th">Enabled</th>
+              <th v-bind:class="css.th">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr v-for="(obj, index) in config.removeCSP" v-bind:class="css.row">
+                <td>
+                  <!-- <label v-bind:for="'removeCSP-' + index" v-bind:class="css.label"
+                    >CSP Origin</label
+                  > -->
+                  <input
+                    aria-label="Origin Pattern"
+                    v-bind:id="'removeCSP-' + index"
+                    v-bind:class="css.input"
+                    v-model="obj.originPattern"
+                  />
+                </td><td>
+                  <!-- <label
+                    v-bind:for="'remove-CSP-enabled-' + index"
+                    v-bind:class="css.checkboxLabel"
+                  >Enabled</label> -->
+                  <input
+                    aria-label="Enabled"
+                    v-bind:id="'remove-CSP-enabled-' + index"
+                    v-bind:class="css.checkbox"
+                    type="checkbox"
+                    v-model="obj.enabled"
+                  />
+                </td><td>
+                  <button
+                    aria-label="Remove"
+                    v-bind:class="css.remove"
+                    type="button"
+                    v-on:click="removeCSPByIndex(index)"
+                    title="Remove CSP rule"
+                  >
+                    &times;
+                  </button>
+                </td><td>
+              </td>
+              </tr>
+          </tbody>
+        </table>
         <button v-bind:class="css.add" type="button" v-on:click="addCSP()">
-          Add CSP rule
-        </button>
+            Add CSP rule
+          </button>
+
       </section>
       <hr class="b--black-10" />
       <section>
-        <h2>Redirect URLs</h2>
+        <h2 v-bind:class="css.h2">Redirect URLs</h2>
         <p>
           Pattern matching is allowed for URLs. You can use <code>*</code> to
           match a URL chunk (a protocol, subdomain, section of a path, or a
@@ -64,7 +95,8 @@
           pattern matched. You can use this value in the "To" field by using the
           same syntax. You can use as many names as you want.
         </p>
-        <div v-for="(obj, index) in config.redirect" class="bl bw1 mv3 pl3">
+        <div v-for="(obj, index) in config.redirect" v-bind:class="css.card">
+          <div class="flex-auto">
           <label v-bind:for="'redirect-from-' + index" v-bind:class="css.label"
             >Redirect from pattern</label
           >
@@ -73,6 +105,8 @@
             v-bind:class="css.input"
             v-model="obj.fromPattern"
           />
+          </div>
+          <div class="flex-auto">
           <label v-bind:for="'redirect-to-' + index" v-bind:class="css.label"
             >Redirect to pattern</label
           >
@@ -81,13 +115,15 @@
             v-bind:class="css.input"
             v-model="obj.toPattern"
           />
-
+        </div>
+        <input type="checkbox" v-model="obj.enabled" v-bind:class="css.checkbox" />
             <button
+            aria-label="Remove redirect rule"
               v-bind:class="css.remove"
               type="button"
               v-on:click="removeRedirectByIndex(index)"
             >
-              Remove Redirect Rule
+              &times;
             </button>
           </div>
         </div>
@@ -97,6 +133,7 @@
         <pre>{{ configJSON }}</pre>
       </section>
     </main>
+    <script src="../lib/webextension-polyfill-0.5.0.min.js"></script>
     <script type="module" src="configure.js"></script>
   </body>
 </html>

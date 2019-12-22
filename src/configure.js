@@ -9,9 +9,15 @@ const app = new Vue({
 
   data: {
     css: {
-      label: "db b nb2",
+      h2: "normal",
+      th: "tl normal",
+      card: "flex",
+      table: "collapse mv4 dt--fixed",
+      row: "b--black-10 bb bw1",
+      label: "db b mt3 nb2",
+      checkbox: "Checkbox",
       input:
-        "input-reset button-reset border-box db w-100 code ba b--black-20 bw1 br1 mv3 pa2 Focus-Border",
+        "input-reset button-reset f6 border-box db w-100 code ba b--black-20 bw1 br1 mv3 pa2 Focus-Border",
       add:
         "input-reset button-reset b db bg-dark-blue white b--transparent ba bw1 br2 mv3 ph3 pv2 Focus-Border Hover-Dim-75",
       remove:
