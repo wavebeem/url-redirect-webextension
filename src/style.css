@@ -1,0 +1,17 @@
+:root {
+  --Focus-Color: #357edd;
+}
+
+.Focus-Border:focus {
+  outline: 0;
+  border-color: #357edd;
+  box-shadow: inset 0 0 0 0.125rem white, 0 0 0 0.125rem #96ccff;
+}
+
+.Hover-Dim-75:hover {
+  opacity: 0.75;
+}
+
+.Hover-Dim-50:hover {
+  opacity: 0.5;
+}
