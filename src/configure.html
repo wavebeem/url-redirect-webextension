@@ -9,95 +9,91 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body
-    class="helvetica pa2 lh-copy near-black bg-near-white f5 overflow-container"
+    class="helvetica lh-copy near-black bg-near-white f5 overflow-container"
   >
     <div id="app">
-      <header class="center mw7 ph2">
-        <h1 class="mv0 lh-title">URL Switcher</h1>
-        <p class="mv0">
+      <header class="Header">
+        <h1 class="Content mv0 lh-title">URL Switcher</h1>
+        <p class="Content mv0">
           &copy; 2019
           <a href="https://mockbrian.com" class="black hover-gray"
             >Brian Mock</a
           >
         </p>
-        <p>
+        <p class="Content">
           Note that the browser cache can interfere with URL Switcher. You can
           bypass the browser cache via a setting in the DevTools, as well as
           holding Shift while refreshing the page.
         </p>
-        <input
-          id="config-enabled"
-          type="checkbox"
-          v-model="config.enabled"
-          class="Checkbox Focus-Border"
-        />
-        <label for="config-enabled" class="Label">Enable URL Switcher</label>
+        <div class="Content">
+          <input
+            id="config-enabled"
+            type="checkbox"
+            v-model="config.enabled"
+            class="Checkbox Focus-Border"
+          />
+          <label for="config-enabled" class="Label">Enable URL Switcher</label>
+        </div>
+        <div class="Content">
+          <button class="Button Focus-Border" type="button">Import...</button>
+          <button class="Button Focus-Border" type="button">Export...</button>
+        </div>
       </header>
-      <hr class="b--black-10" />
       <main class="center mw7 pa2 dark-gray tc" v-if="!config.enabled">
         URL Switcher is disabled
       </main>
       <main class="center mw7 ph2" v-if="config.enabled">
         <section>
-          <h2 class="H2">Remove CSP (Content-Security-Policy)</h2>
+          <h2 class="H2">Remove CSP Rules</h2>
           <p>
+            TODO: Explain Content-Security-Policy and why you would disable it
             Examples:
             <code>https://google.com</code> This will disable CSP on google.com,
             but not mail.google.com, and only when using HTTPS, not plain HTTP.
           </p>
-          <table class="Table">
-            <thead>
-              <tr class="Row">
-                <th class="Th">Enabled</th>
-                <th class="Th">Origin Pattern</th>
-                <th class="Th">Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(obj, index) in config.removeCSP" class="Row">
-                <td>
-                  <input
-                    aria-label="Enabled"
-                    v-bind:id="'remove-CSP-enabled-' + index"
-                    class="Checkbox Focus-Border"
-                    type="checkbox"
-                    v-model="obj.enabled"
-                  />
-                </td>
-                <td>
-                  <input
-                    aria-label="Origin Pattern"
-                    v-bind:id="'removeCSP-' + index"
-                    class="Input Focus-Border Monospace"
-                    v-model="obj.originPattern"
-                  />
-                </td>
-                <td>
-                  <button
-                    aria-label="Remove"
-                    class="Remove Focus-Border"
-                    type="button"
-                    v-on:click="removeCSPByIndex(index)"
-                    title="Remove CSP rule"
-                  >
-                    Remove
-                  </button>
-                </td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="Card" v-for="(obj, index) in config.removeCSP">
+            <div class="flex">
+              <input
+                v-bind:id="'removeCSP-enabled-' + index"
+                type="checkbox"
+                v-model="obj.enabled"
+                class="Checkbox Focus-Border"
+              />
+              <label v-bind:for="'removeCSP-enabled-' + index" class="Label"
+                >Enabled</label
+              >
+              <div class="flex-auto"></div>
+              <button
+                aria-label="Remove redirect rule"
+                class="Remove Focus-Border"
+                type="button"
+                v-on:click="removeCSPByIndex(index)"
+              >
+                Remove
+              </button>
+            </div>
+            <div class="PaddingLeft">
+              <label v-bind:for="'removeCSP-origin-' + index" class="Label"
+                >Origin</label
+              >
+              <input
+                aria-label="Origin Pattern"
+                v-bind:id="'removeCSP-origin' + index"
+                class="Input Focus-Border Monospace"
+                v-model="obj.originPattern"
+              />
+            </div>
+          </div>
           <button
             class="Button Focus-Border"
             type="button"
             v-on:click="addCSP()"
           >
-            Add CSP rule
+            Add CSP Rule
           </button>
         </section>
-        <hr class="b--black-10" />
         <section>
-          <h2 class="H2">Redirect URLs</h2>
+          <h2 class="H2">Redirect URL Rules</h2>
           <p>
             Pattern matching is allowed for URLs. You can use <code>*</code> to
             match a URL chunk (a protocol, subdomain, section of a path, or a
@@ -129,9 +125,9 @@
                 Remove
               </button>
             </div>
-            <div class="flex-auto">
+            <div class="flex-auto PaddingLeft">
               <label v-bind:for="'redirect-from-' + index" class="Label"
-                >Redirect from pattern</label
+                >From</label
               >
               <input
                 v-bind:id="'redirect-from-' + index"
@@ -139,9 +135,9 @@
                 v-model="obj.fromPattern"
               />
             </div>
-            <div class="flex-auto">
+            <div class="flex-auto PaddingLeft">
               <label v-bind:for="'redirect-to-' + index" class="Label"
-                >Redirect to pattern</label
+                >To</label
               >
               <input
                 v-bind:id="'redirect-to-' + index"

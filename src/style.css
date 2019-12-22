@@ -1,6 +1,7 @@
 :root {
   --Color-ButtonBG: hsla(240, 10%, 10%, 0.1);
   --Color-ButtonBGHover: hsla(240, 10%, 10%, 0.15);
+  --Color-Separator: hsl(240, 10%, 90%);
   --Color-Border: hsl(240, 10%, 80%);
   --Color-BorderHover: hsl(240, 10%, 50%);
   --Color-Focus: hsl(210, 70%, 50%);
@@ -35,12 +36,28 @@ body {
   font-size: 0.9rem;
 }
 
+.Header {
+  border-bottom: 1px solid var(--Color-Separator);
+  padding: 2rem;
+}
+
+.Content {
+  margin: 0 auto;
+  max-width: 48rem;
+}
+
 .Card {
-  background: hsla(0, 0%, 0%, 0.025);
-  border-radius: 2px;
-  border: 1px solid var(--Color-Border);
-  padding: 1rem;
-  margin: 2rem 0;
+  border-top: 1px solid var(--Color-Separator);
+  padding: 1rem 0;
+  margin: 1rem 0;
+}
+
+.Card:last-of-type {
+  border-bottom: 1px solid var(--Color-Separator);
+}
+
+.PaddingLeft {
+  padding-left: 2rem;
 }
 
 .Input {
@@ -78,7 +95,7 @@ body {
 }
 
 .Remove:hover {
-  border-color: currentColor;
+  border-color: hsl(0, 80%, 85%);
   background-color: hsl(0, 80%, 95%);
 }
 
