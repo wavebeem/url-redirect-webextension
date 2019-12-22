@@ -25,7 +25,7 @@
           bypass the browser cache via a setting in the DevTools, as well as
           holding Shift while refreshing the page.
         </p>
-        <div class="Content">
+        <div class="Content flex">
           <input
             id="config-enabled"
             type="checkbox"
@@ -34,15 +34,16 @@
           />
           <label for="config-enabled" class="Label">Enable URL Switcher</label>
         </div>
-        <div class="Content">
-          <button class="Button Focus-Border" type="button">Import...</button>
-          <button class="Button Focus-Border" type="button">Export...</button>
-        </div>
       </header>
       <main class="center mw7 pa2 dark-gray tc" v-if="!config.enabled">
         URL Switcher is disabled
       </main>
       <main class="center mw7" v-if="config.enabled">
+        <section>
+          <h2 class="H2">Import / Export Settings</h2>
+          <button class="Button Focus-Border" type="button">Import...</button>
+          <button class="Button Focus-Border" type="button">Export...</button>
+        </section>
         <section>
           <h2 class="H2">Remove CSP Rules</h2>
           <p>
@@ -78,7 +79,7 @@
               >
               <input
                 aria-label="Origin Pattern"
-                v-bind:id="'removeCSP-origin' + index"
+                v-bind:id="'removeCSP-origin-' + index"
                 class="Input Focus-Border Monospace"
                 v-model="obj.originPattern"
               />
