@@ -29,6 +29,8 @@ body {
 
 .H2 {
   font-weight: normal;
+  border-top: 1px solid var(--Color-Separator);
+  padding-top: 1rem;
 }
 
 .Monospace {
@@ -37,8 +39,8 @@ body {
 }
 
 .Header {
-  border-bottom: 1px solid var(--Color-Separator);
   padding: 2rem;
+  padding-bottom: 0;
 }
 
 .Content {
