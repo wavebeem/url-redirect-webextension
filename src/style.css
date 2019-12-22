@@ -1,31 +1,104 @@
 :root {
-  --Focus-Color: #357edd;
-  --Focus-Color-Outline: #96ccff;
+  --Color-ButtonBG: hsla(240, 10%, 10%, 0.1);
+  --Color-ButtonBGHover: hsla(240, 10%, 10%, 0.15);
+  --Color-Border: hsl(240, 10%, 80%);
+  --Color-BorderHover: hsl(240, 10%, 50%);
+  --Color-Focus: hsl(210, 70%, 50%);
+  --Color-FocusOutline: hsl(210, 100%, 80%);
   --Rem-1-4: 0.25rem;
   --Rem-1-8: 0.125rem;
   --Rem-1-16: 0.0625rem;
 }
 
-.Focus-Border:focus {
-  outline: 0;
-  border-color: var(--Focus-Color);
-  box-shadow: inset 0 0 0 var(--Rem-1-16) white,
-    0 0 0 var(--Rem-1-8) var(--Focus-Color-Outline);
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.Table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.Th {
+  font-weight: normal;
+  text-align: left;
+}
+
+.H2 {
+  font-weight: normal;
+}
+
+.Input {
+  box-sizing: border-box;
+  height: 2rem;
+  width: 100%;
+  border: 1px solid var(--Color-Border);
+  padding: 0.5rem;
+  border-radius: 2px;
+}
+
+.Input:hover {
+  border-color: var(--Color-BorderHover);
+}
+
+.Button {
+  font: inherit;
+  padding: 0.25rem 1rem;
+  border: 1px solid transparent;
+  background: var(--Color-ButtonBG);
+  border-radius: 2px;
+}
+
+.Button:hover {
+  background: var(--Color-ButtonBGHover);
 }
 
 .Remove {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background-color: transparent;
   background-image: url(/src/remove.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
+.Remove:hover {
+  background-color: hsl(0, 100%, 90%);
+}
+
+.Checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2px;
+  background: white;
+  border: 1px solid var(--Color-Border);
+}
+
+.Checkbox:hover {
+  border-color: var(--Color-BorderHover);
+}
+
 .Checkbox:checked {
-  background: var(--Focus-Color) center / contain no-repeat
-    url(/src/checked.svg);
+  background-image: url(/src/checked.svg);
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: contain;
 }
 
 .Checkbox:checked:hover {
   box-shadow: inset 0 0 0 var(--Rem-1-16) white;
+}
+
+.Focus-Border:focus {
+  outline: 0;
+  border-color: var(--Color-Focus);
+  box-shadow: inset 0 0 0 var(--Rem-1-16) white,
+    0 0 0 var(--Rem-1-8) var(--Color-FocusOutline);
 }
