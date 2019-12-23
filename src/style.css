@@ -112,7 +112,6 @@ main {
 }
 
 .TextArea {
-  /* TODO */
   min-height: calc(2 * var(--Field-Height));
   width: 100%;
   border: 1px solid var(--Color-Border);
@@ -285,8 +284,8 @@ pre,
   box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 2px 4px hsla(0, 0%, 0%, 0.1),
     0 4px 8px hsla(0, 0%, 0%, 0.2);
   padding: 1rem;
-  min-width: 600px;
-  min-height: 300px;
+  min-width: 70vw;
+  min-height: 70vh;
 }
 
 .MarginV-0 {
