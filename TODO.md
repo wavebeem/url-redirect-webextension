@@ -5,7 +5,7 @@
 - [ ] Make a real icon for the toolbar that isn't bad
 - [ ] Make an icon for when it's disabled too
 - [x] Make a settings page (Vue.js?)
-- [ ] Import/export settings, schema validation
+- [x] Import/export settings, schema validation
 - [ ] Settings+Config -> Settings
 - [ ] Modal+Dialog -> Dialog
 - [x] Make a match/replace engine

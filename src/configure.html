@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="app">
+    <div id="app" v-cloak>
       <header class="Header">
         <h1 class="Content H1">URL Switcher</h1>
         <p class="Content MarginV-0">
@@ -178,7 +178,6 @@
             class="TextArea Monospace Flex-Auto Focus-Border"
             ref="importConfigJSON"
             v-model="importConfigJSON"
-            placeholder="Paste settings JSON here..."
           ></textarea>
           <div class="Flex-Row PaddingTop-Separator">
             <div class="Flex-Auto"></div>
@@ -194,6 +193,7 @@
               type="button"
               class="Button Focus-Border"
               v-on:click="doImport()"
+              v-bind:disabled="importConfigJSONError !== ''"
             >
               Import
             </button>
@@ -202,7 +202,36 @@
       </div>
 
       <div class="Modal" v-bind:hidden="!isExportModalVisible">
-        Export
+        <div class="Modal-Body Flex-Column">
+          <h3 class="H3">Export Settings</h3>
+          <textarea
+            class="TextArea Monospace Flex-Auto Focus-Border"
+            ref="exportConfigJSON"
+            readonly
+            v-model="configJSON"
+          ></textarea>
+          <div class="Flex-Row PaddingTop-Separator">
+            <div class="Label" v-bind:hidden="!isCopiedMessageVisible">
+              Copied Settings JSON
+            </div>
+            <div class="Flex-Auto"></div>
+            <button
+              type="button"
+              class="TextButton Focus-Border"
+              v-on:click="hideExportDialog()"
+            >
+              Close
+            </button>
+            <div class="PaddingLeft-Separator"></div>
+            <button
+              type="button"
+              class="Button Focus-Border"
+              v-on:click="copyConfig()"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <script src="../lib/webextension-polyfill-0.5.0.min.js"></script>

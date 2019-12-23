@@ -8,6 +8,7 @@ export const app = new Vue({
   el: "#app",
 
   data: {
+    isCopiedMessageVisible: false,
     importConfigJSON: "",
     isImportModalVisible: false,
     isExportModalVisible: false,
@@ -16,13 +17,19 @@ export const app = new Vue({
 
   methods: {
     doImport() {
-      // TODO
-      alert(this.importConfig);
       page.updateConfigJSON(this.importConfigJSON);
+      this.config = page.getConfig();
+      this.isImportModalVisible = false;
+      this.importConfigJSON = "";
     },
 
     copyConfig() {
-      // TODO
+      this.$refs.exportConfigJSON.select();
+      document.execCommand("copy");
+      this.isCopiedMessageVisible = true;
+      setTimeout(() => {
+        this.isCopiedMessageVisible = false;
+      }, 3000);
     },
 
     addCSP() {
@@ -55,6 +62,7 @@ export const app = new Vue({
 
     hideImportDialog() {
       this.isImportModalVisible = false;
+      this.importConfigJSON = "";
     },
 
     hideExportDialog() {
@@ -65,6 +73,15 @@ export const app = new Vue({
   computed: {
     configJSON() {
       return JSON.stringify(this.config, null, 2);
+    },
+
+    importConfigJSONError() {
+      try {
+        JSON.parse(this.importConfigJSON);
+        return "";
+      } catch (err) {
+        return "Invalid settings JSON";
+      }
     }
   }
 });
@@ -81,7 +98,7 @@ app.$watch("isImportModalVisible", function(isImportModalVisible) {
 
 app.$watch("isExportModalVisible", function(isExportModalVisible) {
   if (isExportModalVisible) {
-    this.$refs.exportConfig.focus();
+    this.$refs.exportConfigJSON.focus();
   }
 });
 

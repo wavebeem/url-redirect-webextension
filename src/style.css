@@ -5,6 +5,8 @@
   --Color-LinkHover: #777;
   --Color-BodyFG: #111;
   --Color-BodyBG: #f4f4f4;
+  --Color-ButtonDisabledBG: hsla(240, 10%, 10%, 0.05);
+  --Color-ButtonDisabledFG: #aaa;
   --Color-ButtonBG: hsla(240, 10%, 10%, 0.1);
   --Color-ButtonBGHover: hsla(240, 10%, 10%, 0.15);
   --Color-Separator: hsl(240, 10%, 90%);
@@ -188,8 +190,13 @@ pre,
   border-radius: 2px;
 }
 
-.Button:hover {
+.Button:not(:disabled):hover {
   background: var(--Color-ButtonBGHover);
+}
+
+.Button:disabled {
+  background: var(--Color-ButtonDisabledBG);
+  color: var(--Color-ButtonDisabledFG);
 }
 
 .TextButton {
@@ -235,6 +242,10 @@ pre,
   line-height: var(--Field-Height);
   user-select: none;
   display: inline-block;
+}
+
+.Label[hidden] {
+  visibility: hidden;
 }
 
 .Modal[hidden] {
@@ -287,4 +298,8 @@ pre,
   border-color: var(--Color-Focus);
   box-shadow: inset 0 0 0 var(--Rem-1-16) var(--Color-FocusInner),
     0 0 0 var(--Rem-1-8) var(--Color-FocusOutline);
+}
+
+[v-cloak] {
+  display: none;
 }

@@ -292,12 +292,17 @@ function sanitizedConfig(data) {
 }
 
 function getConfig() {
-  const json = localStorage.getItem("config");
-  if (!json) {
+  try {
+    const json = localStorage.getItem("config");
+    if (!json) {
+      return getDefaultConfig();
+    }
+    const data = JSON.parse(json);
+    return sanitizedConfig(data);
+  } catch (err) {
+    console.error(err);
     return getDefaultConfig();
   }
-  const data = JSON.parse(json);
-  return sanitizedConfig(data);
 }
 
 let config = getConfig();
