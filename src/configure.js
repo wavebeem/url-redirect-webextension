@@ -57,7 +57,7 @@ const app = new Vue({
 });
 
 app.$watch("configJSON", json => {
-  page.updateConfig(json);
+  page.updateConfigJSON(json);
 });
 
 Object.assign(globalThis, { app, page });

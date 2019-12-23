@@ -242,36 +242,65 @@ browser.tabs.onRemoved.addListener(handlers.onRemoved);
 browser.tabs.onUpdated.addListener(handlers.onUpdated);
 browser.browserAction.onClicked.addListener(handlers.onClicked);
 
-function updateConfig(json) {
+function updateConfigJSON(json) {
   localStorage.setItem("config", json);
   config = getConfig();
+}
+
+function getDefaultConfig() {
+  return {
+    configSchemaVersion: 1,
+    enabled: true,
+    removeCSPRules: [
+      { enabled: true, originPattern: "*://*.meridianapps.com" }
+    ],
+    redirectRules: [
+      {
+        enabled: true,
+        fromPattern:
+          "https://storage.googleapis.com/meridian-editor-frontend/*/{file}",
+        toPattern: "https://localhost:9001/{file}"
+      },
+      {
+        enabled: true,
+        fromPattern: "https://internet.com/meridian-editor-frontend/*/{file}",
+        toPattern: "https://localhost:8001/{file}"
+      }
+    ]
+  };
+}
+
+function sanitizedCSPRule(rule) {
+  return {
+    enabled: Boolean(rule.enabled),
+    originPattern: String(rule.originPattern)
+  };
+}
+
+function sanitizedRedirectRule(rule) {
+  return {
+    enabled: Boolean(rule.enabled),
+    fromPattern: String(rule.fromPattern),
+    toPattern: String(rule.toPattern)
+  };
+}
+
+function sanitizedConfig(data) {
+  return {
+    configSchemaVersion: Number(data.configSchemaVersion || 1),
+    enabled: Boolean(data.enabled),
+    removeCSPRules: (data.removeCSPRules || []).map(sanitizedCSPRule),
+    redirectRules: (data.redirectRules || []).map(sanitizedRedirectRule)
+  };
 }
 
 function getConfig() {
   const json = localStorage.getItem("config");
   if (!json) {
-    return {
-      configSchemaVersion: 1,
-      enabled: true,
-      removeCSPRules: [
-        { enabled: true, originPattern: "*://*.meridianapps.com" }
-      ],
-      redirectRules: [
-        {
-          enabled: true,
-          fromPattern:
-            "https://storage.googleapis.com/meridian-editor-frontend/*/{file}",
-          toPattern: "https://localhost:9001/{file}"
-        },
-        {
-          enabled: true,
-          fromPattern: "https://internet.com/meridian-editor-frontend/*/{file}",
-          toPattern: "https://localhost:8001/{file}"
-        }
-      ]
-    };
+    return getDefaultConfig();
   }
-  return JSON.parse(json);
+  const data = JSON.parse(json);
+  return sanitizedConfig(data);
 }
 
 let config = getConfig();

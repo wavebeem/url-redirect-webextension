@@ -16,22 +16,17 @@
   --Content-Width: 48rem;
 }
 
-.Flex-Row {
-  display: flex;
-  flex-direction: row;
-}
-
-.Flex-Auto {
-  flex: 1 1 auto;
-}
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.5;
+  margin: 0;
+  padding: 2rem;
   background: var(--Color-BodyBG);
   color: var(--Color-BodyFG);
   overflow-y: scroll;
+  overflow-x: auto;
+  min-width: 600px;
 }
 
 button,
@@ -46,15 +41,19 @@ main {
   max-width: var(--Content-Width);
 }
 
+.Flex-Row {
+  display: flex;
+  flex-direction: row;
+}
+
+.Flex-Auto {
+  flex: 1 1 auto;
+}
+
 .Table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-}
-
-.MarginV-0 {
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 .Link-Black {
@@ -81,6 +80,7 @@ main {
   border-top: 1px solid var(--Color-Separator);
   padding-top: 1rem;
   line-height: 1.25;
+  margin: 1rem 0;
 }
 
 code,
@@ -91,9 +91,7 @@ pre,
 }
 
 .Header {
-  padding: 2rem;
-  padding-top: 1rem;
-  padding-bottom: 0;
+  padding: 0 2rem;
 }
 
 .Content {
@@ -205,6 +203,11 @@ pre,
   line-height: var(--Field-Height);
   user-select: none;
   display: inline-block;
+}
+
+.MarginV-0 {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .Focus-Border:focus {
