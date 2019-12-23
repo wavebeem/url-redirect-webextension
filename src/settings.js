@@ -9,22 +9,22 @@ export const app = new Vue({
 
   data: {
     isCopiedMessageVisible: false,
-    importConfigJSON: "",
+    importSettingsJSON: "",
     isImportModalVisible: false,
     isExportModalVisible: false,
-    config: page.getConfig()
+    settings: page.getSettings()
   },
 
   methods: {
     doImport() {
-      page.updateConfigJSON(this.importConfigJSON);
-      this.config = page.getConfig();
+      page.updateSettingsJSON(this.importSettingsJSON);
+      this.settings = page.getSettings();
       this.isImportModalVisible = false;
-      this.importConfigJSON = "";
+      this.importSettingsJSON = "";
     },
 
-    copyConfig() {
-      this.$refs.exportConfigJSON.select();
+    copySettings() {
+      this.$refs.exportSettingsJSON.select();
       document.execCommand("copy");
       this.isCopiedMessageVisible = true;
       setTimeout(() => {
@@ -33,15 +33,15 @@ export const app = new Vue({
     },
 
     addCSP() {
-      this.config.removeCSPRules.push({ originPattern: "", enabled: true });
+      this.settings.removeCSPRules.push({ originPattern: "", enabled: true });
     },
 
     removeCSPByIndex(index) {
-      this.config.removeCSPRules.splice(index, 1);
+      this.settings.removeCSPRules.splice(index, 1);
     },
 
     addRedirect() {
-      this.config.redirectRules.push({
+      this.settings.redirectRules.push({
         fromPattern: "",
         toPattern: "",
         enabled: true
@@ -49,7 +49,7 @@ export const app = new Vue({
     },
 
     removeRedirectByIndex(index) {
-      this.config.redirectRules.splice(index, 1);
+      this.settings.redirectRules.splice(index, 1);
     },
 
     showImportDialog() {
@@ -62,7 +62,7 @@ export const app = new Vue({
 
     hideImportDialog() {
       this.isImportModalVisible = false;
-      this.importConfigJSON = "";
+      this.importSettingsJSON = "";
     },
 
     hideExportDialog() {
@@ -71,13 +71,13 @@ export const app = new Vue({
   },
 
   computed: {
-    configJSON() {
-      return JSON.stringify(this.config, null, 2);
+    settingsJSON() {
+      return JSON.stringify(this.settings, null, 2);
     },
 
-    importConfigJSONError() {
+    importSettingsJSONError() {
       try {
-        JSON.parse(this.importConfigJSON);
+        JSON.parse(this.importSettingsJSON);
         return "";
       } catch (err) {
         return "Invalid settings JSON";
@@ -86,19 +86,19 @@ export const app = new Vue({
   }
 });
 
-app.$watch("configJSON", function(json) {
-  page.updateConfigJSON(json);
+app.$watch("settingsJSON", function(json) {
+  page.updateSettingsJSON(json);
 });
 
 app.$watch("isImportModalVisible", function(isImportModalVisible) {
   if (isImportModalVisible) {
-    this.$refs.importConfigJSON.focus();
+    this.$refs.importSettingsJSON.focus();
   }
 });
 
 app.$watch("isExportModalVisible", function(isExportModalVisible) {
   if (isExportModalVisible) {
-    this.$refs.exportConfigJSON.focus();
+    this.$refs.exportSettingsJSON.focus();
   }
 });
 

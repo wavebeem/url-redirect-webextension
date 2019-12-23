@@ -170,7 +170,10 @@ function getTabData(tabId) {
 
 const handlers = {
   onClicked() {
-    browser.tabs.create({ url: browser.runtime.getURL("src/configure.html") });
+    browser.tabs.create({
+      url: browser.runtime.getURL("src/settings.html")
+      // url: "/src/settings.html"
+    });
   },
 
   onUpdated(tabId, changeInfo /*, tab */) {
@@ -184,11 +187,11 @@ const handlers = {
   },
 
   onBeforeRequest(event) {
-    if (!config.enabled) {
+    if (!settings.enabled) {
       return {};
     }
     const { url, tabId } = event;
-    for (const obj of config.redirectRules) {
+    for (const obj of settings.redirectRules) {
       const match = matchURL(obj.fromPattern, url);
       if (match) {
         const data = getTabData(tabId);
@@ -201,14 +204,14 @@ const handlers = {
   },
 
   onHeadersReceived(event) {
-    if (!config.enabled) {
+    if (!settings.enabled) {
       return {};
     }
     if (!event.responseHeaders) {
       return {};
     }
     const { url, responseHeaders, tabId } = event;
-    const matches = config.removeCSPRules.some(obj => {
+    const matches = settings.removeCSPRules.some(obj => {
       return matchOrigin(obj.originPattern, url);
     });
     if (!matches) {
@@ -242,14 +245,14 @@ browser.tabs.onRemoved.addListener(handlers.onRemoved);
 browser.tabs.onUpdated.addListener(handlers.onUpdated);
 browser.browserAction.onClicked.addListener(handlers.onClicked);
 
-function updateConfigJSON(json) {
-  localStorage.setItem("config", json);
-  config = getConfig();
+function updateSettingsJSON(json) {
+  localStorage.setItem("settings", json);
+  settings = getSettings();
 }
 
-function getDefaultConfig() {
-  return sanitizedConfig({
-    configSchemaVersion: 1,
+function getDefaultSettings() {
+  return sanitizedSettings({
+    settingsSchemaVersion: 1,
     enabled: true,
     removeCSPRules: [{ enabled: true, originPattern: "*://*.example.com" }],
     redirectRules: [
@@ -282,27 +285,27 @@ function sanitizedRedirectRule(rule) {
   };
 }
 
-function sanitizedConfig(data) {
+function sanitizedSettings(data) {
   return {
-    configSchemaVersion: Number(data.configSchemaVersion || 1),
+    settingsSchemaVersion: Number(data.settingsSchemaVersion || 1),
     enabled: Boolean(data.enabled),
     removeCSPRules: (data.removeCSPRules || []).map(sanitizedCSPRule),
     redirectRules: (data.redirectRules || []).map(sanitizedRedirectRule)
   };
 }
 
-function getConfig() {
+function getSettings() {
   try {
-    const json = localStorage.getItem("config");
+    const json = localStorage.getItem("settings");
     if (!json) {
-      return getDefaultConfig();
+      return getDefaultSettings();
     }
     const data = JSON.parse(json);
-    return sanitizedConfig(data);
+    return sanitizedSettings(data);
   } catch (err) {
     console.error(err);
-    return getDefaultConfig();
+    return getDefaultSettings();
   }
 }
 
-let config = getConfig();
+let settings = getSettings();

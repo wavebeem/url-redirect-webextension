@@ -22,16 +22,16 @@
         </p>
         <div class="Content Flex-Row">
           <input
-            id="config-enabled"
+            id="settings-enabled"
             type="checkbox"
-            v-model="config.enabled"
+            v-model="settings.enabled"
             class="Checkbox Focus-Border"
           />
-          <label for="config-enabled" class="Label">Enable URL Switcher</label>
+          <label for="settings-enabled" class="Label">Enable URL Switcher</label>
         </div>
       </header>
 
-      <main v-if="config.enabled">
+      <main v-if="settings.enabled">
         <section>
           <h2 class="H2">Import / Export Settings</h2>
           <div class="Flex-Row">
@@ -60,7 +60,7 @@
             <code>https://google.com</code> This will disable CSP on google.com,
             but not mail.google.com, and only when using HTTPS, not plain HTTP.
           </p>
-          <div class="Card" v-for="(obj, index) in config.removeCSPRules">
+          <div class="Card" v-for="(obj, index) in settings.removeCSPRules">
             <div class="Flex-Row">
               <input
                 v-bind:id="'removeCSP-enabled-' + index"
@@ -115,7 +115,7 @@
             pattern matched. You can use this value in the "To" field by using
             the same syntax. You can use as many names as you want.
           </p>
-          <div v-for="(obj, index) in config.redirectRules" class="Card">
+          <div v-for="(obj, index) in settings.redirectRules" class="Card">
             <div class="Flex-Row">
               <input
                 v-bind:id="'redirect-enabled-' + index"
@@ -176,8 +176,8 @@
           <h3 class="H3">Import Settings</h3>
           <textarea
             class="TextArea Monospace Flex-Auto Focus-Border"
-            ref="importConfigJSON"
-            v-model="importConfigJSON"
+            ref="importSettingsJSON"
+            v-model="importSettingsJSON"
           ></textarea>
           <div class="Flex-Row PaddingTop-Separator">
             <div class="Flex-Auto"></div>
@@ -193,7 +193,7 @@
               type="button"
               class="Button Focus-Border"
               v-on:click="doImport()"
-              v-bind:disabled="importConfigJSONError !== ''"
+              v-bind:disabled="importSettingsJSONError !== ''"
             >
               Import
             </button>
@@ -206,9 +206,9 @@
           <h3 class="H3">Export Settings</h3>
           <textarea
             class="TextArea Monospace Flex-Auto Focus-Border"
-            ref="exportConfigJSON"
+            ref="exportSettingsJSON"
             readonly
-            v-model="configJSON"
+            v-model="settingsJSON"
           ></textarea>
           <div class="Flex-Row PaddingTop-Separator">
             <div class="Label" v-bind:hidden="!isCopiedMessageVisible">
@@ -226,7 +226,7 @@
             <button
               type="button"
               class="Button Focus-Border"
-              v-on:click="copyConfig()"
+              v-on:click="copySettings()"
             >
               Copy
             </button>
@@ -235,6 +235,6 @@
       </div>
     </div>
     <script src="../lib/webextension-polyfill-0.5.0.min.js"></script>
-    <script type="module" src="configure.js"></script>
+    <script type="module" src="settings.js"></script>
   </body>
 </html>
