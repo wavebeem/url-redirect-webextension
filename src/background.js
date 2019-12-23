@@ -248,26 +248,23 @@ function updateConfigJSON(json) {
 }
 
 function getDefaultConfig() {
-  return {
+  return sanitizedConfig({
     configSchemaVersion: 1,
     enabled: true,
-    removeCSPRules: [
-      { enabled: true, originPattern: "*://*.meridianapps.com" }
-    ],
+    removeCSPRules: [{ enabled: true, originPattern: "*://*.example.com" }],
     redirectRules: [
       {
         enabled: true,
-        fromPattern:
-          "https://storage.googleapis.com/meridian-editor-frontend/*/{file}",
-        toPattern: "https://localhost:9001/{file}"
+        fromPattern: "https://example.com/{version}/jquery.min.js",
+        toPattern: "https://example.com/{version}/jquery.js"
       },
       {
-        enabled: true,
-        fromPattern: "https://internet.com/meridian-editor-frontend/*/{file}",
-        toPattern: "https://localhost:8001/{file}"
+        enabled: false,
+        fromPattern: "https://example.com/js/{file}",
+        toPattern: "https://localhost:8000/{file}"
       }
     ]
-  };
+  });
 }
 
 function sanitizedCSPRule(rule) {

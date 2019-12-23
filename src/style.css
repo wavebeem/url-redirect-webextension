@@ -1,4 +1,6 @@
 :root {
+  --Color-Link: #000;
+  --Color-LinkHover: #777;
   --Color-BodyFG: #111;
   --Color-BodyBG: #f4f4f4;
   --Color-ButtonBG: hsla(240, 10%, 10%, 0.1);
@@ -7,7 +9,10 @@
   --Color-Border: hsl(240, 10%, 80%);
   --Color-BorderHover: hsl(240, 10%, 50%);
   --Color-Focus: hsl(210, 70%, 50%);
+  --Color-FocusInner: white;
   --Color-FocusOutline: hsl(210, 100%, 80%);
+
+  --Image-Checked: url(/src/checked.svg);
 
   --Rem-1-8: 0.125rem;
   --Rem-1-16: 0.0625rem;
@@ -57,11 +62,11 @@ main {
 }
 
 .Link-Black {
-  color: #000;
+  color: var(--Color-Link);
 }
 
 .Link-Black:hover {
-  color: #777;
+  color: var(--Color-LinkHover);
 }
 
 .Th {
@@ -156,7 +161,7 @@ pre,
 }
 
 .Remove {
-  height: 2rem;
+  height: var(--Field-Height);
   color: hsl(0, 100%, 40%);
   background: transparent;
   border: 1px solid transparent;
@@ -188,14 +193,10 @@ pre,
 }
 
 .Checkbox:checked {
-  background-image: url(/src/checked.svg);
+  background-image: var(--Image-Checked);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-}
-
-.Checkbox:checked:hover {
-  box-shadow: inset 0 0 0 var(--Rem-1-16) white;
 }
 
 .Label {
@@ -213,6 +214,6 @@ pre,
 .Focus-Border:focus {
   outline: 0;
   border-color: var(--Color-Focus);
-  box-shadow: inset 0 0 0 var(--Rem-1-16) white,
+  box-shadow: inset 0 0 0 var(--Rem-1-16) var(--Color-FocusInner),
     0 0 0 var(--Rem-1-8) var(--Color-FocusOutline);
 }
