@@ -2,11 +2,12 @@
 - [x] Test redirecting URLs
 - [x] Keep counts of redirected URLs per tab
 - [x] Show if CSP was disabled per tab
-- [ ] Make a real icon for the toolbar that isn't bad
-- [ ] Make an icon for when it's disabled too
+- [x] Make a real icon for the toolbar that isn't bad
+- [x] Make an icon for when it's disabled too
 - [x] Make a settings page (Vue.js?)
 - [x] Import/export settings, schema validation
 - [x] Settings+Config -> Settings
 - [x] Modal+Dialog -> Modal
 - [x] Make a match/replace engine
 - [x] Set browser action title
+- [ ] Write the help text

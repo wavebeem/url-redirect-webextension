@@ -148,10 +148,9 @@ function matchURL(pattern, target) {
 }
 
 function updateTabBadge(tabId, tabData) {
-  console.log(`update tab ${tabId}`, tabData);
   const { cspDisabled, redirectCount } = tabData;
   const text = String(redirectCount);
-  const color = cspDisabled ? "#c00" : "#444";
+  const color = cspDisabled ? "#c00" : "#26c";
   const title = [
     redirectCount === 1 ? "1 redirect" : `${redirectCount} redirects`,
     cspDisabled ? "CSP disabled" : "",
@@ -260,6 +259,17 @@ function updateBrowserAction() {
       ? "URL Switcher is enabled"
       : "URL Switcher is disabled"
   });
+  const enabledIcons = {
+    16: browser.runtime.getURL("img/icon-enabled.png"),
+    32: browser.runtime.getURL("img/icon-enabled@2x.png")
+  };
+  const disabledIcons = {
+    16: browser.runtime.getURL("img/icon-disabled.png"),
+    32: browser.runtime.getURL("img/icon-disabled@2x.png")
+  };
+  browser.browserAction.setIcon({
+    path: settings.enabled ? enabledIcons : disabledIcons
+  });
   initializeTabData().catch(err => {
     console.error(err);
   });
@@ -334,7 +344,7 @@ let settings = getSettings();
 async function initializeTabData() {
   tabData.clear();
   for (const tab of await browser.tabs.query({})) {
-    console.log(`tab ${tab.id}`, getTabData(tab.id));
+    getTabData(tab.id);
   }
 }
 

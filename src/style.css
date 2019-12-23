@@ -16,7 +16,7 @@
   --Color-FocusInner: white;
   --Color-FocusOutline: hsl(210, 100%, 80%);
 
-  --Image-Checked: url(/src/checked.svg);
+  --Image-Checked: url(/img/checked.svg);
 
   --Rem-1-8: 0.125rem;
   --Rem-1-16: 0.0625rem;
@@ -164,6 +164,11 @@ pre,
 
 .PaddingLeft-Separator {
   padding-left: 1rem;
+}
+
+.Logo {
+  float: left;
+  padding-right: 1rem;
 }
 
 .PaddingTop-Separator {

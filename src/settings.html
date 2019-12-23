@@ -6,29 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>URL Switcher</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="/img/icon-32.png" />
+    <link rel="icon" sizes="16x16" href="/img/icon-enabled.png" />
+    <link rel="icon" sizes="32x32" href="/img/icon-enabled@2x.png" />
   </head>
   <body>
     <div id="app" v-cloak>
-      <header class="Header">
-        <h1 class="Content H1">URL Switcher</h1>
-        <p class="Content MarginV-0">
+      <header class="Header Content">
+        <img
+          width="64"
+          height="64"
+          src="/img/icon-enabled.svg"
+          alt=""
+          class="Logo"
+        />
+        <h1 class="H1">URL Switcher</h1>
+        <p class="MarginV-0">
           &copy; 2019
           <a href="https://mockbrian.com" class="Link-Black">Brian Mock</a>
         </p>
-        <p class="Content">
+        <p>
           TODO: Note that the browser cache can interfere with URL Switcher. You
           can bypass the browser cache via a setting in the DevTools, as well as
           holding Shift while refreshing the page.
         </p>
-        <div class="Content Flex-Row">
+        <div class="Flex-Row">
           <input
             id="settings-enabled"
             type="checkbox"
             v-model="settings.enabled"
             class="Checkbox Focus-Border"
           />
-          <label for="settings-enabled" class="Label">Enable URL Switcher</label>
+          <label for="settings-enabled" class="Label"
+            >Enable URL Switcher</label
+          >
         </div>
       </header>
 

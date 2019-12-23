@@ -12,8 +12,8 @@
   },
 
   "icons": {
-    "32": "img/icon-32.png",
-    "48": "img/icon-48.png"
+    "16": "img/icon-enabled.png",
+    "32": "img/icon-enabled@2x.png"
   },
 
   "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"],
@@ -31,8 +31,8 @@
   "browser_action": {
     "default_title": "URL Switcher",
     "default_icon": {
-      "32": "img/icon-32.png",
-      "48": "img/icon-48.png"
+      "16": "img/icon-enabled.png",
+      "32": "img/icon-enabled@2x.png"
     }
   }
 }
