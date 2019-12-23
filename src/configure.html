@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>URL Switcher</title>
-    <!-- <link rel="stylesheet" href="../lib/tachyons-4.10.0.min.css" /> -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -14,12 +13,10 @@
         <h1 class="Content H1">URL Switcher</h1>
         <p class="Content MarginV-0">
           &copy; 2019
-          <a href="https://mockbrian.com" class="Link-Black"
-            >Brian Mock</a
-          >
+          <a href="https://mockbrian.com" class="Link-Black">Brian Mock</a>
         </p>
         <p class="Content">
-          Note that the browser cache can interfere with URL Switcher. You can
+          TODO: Note that the browser cache can interfere with URL Switcher. You can
           bypass the browser cache via a setting in the DevTools, as well as
           holding Shift while refreshing the page.
         </p>
@@ -37,9 +34,21 @@
         <section>
           <h2 class="H2">Import / Export Settings</h2>
           <div class="Flex-Row">
-            <button class="Button Focus-Border" type="button">Import...</button>
+            <button
+              class="Button Focus-Border"
+              type="button"
+              v-on:click="showImportDialog"
+            >
+              Import...
+            </button>
             <div class="PaddingLeft-Separator"></div>
-            <button class="Button Focus-Border" type="button">Export...</button>
+            <button
+              class="Button Focus-Border"
+              type="button"
+              v-on:click="showExportDialog"
+            >
+              Export...
+            </button>
           </div>
         </section>
         <section>

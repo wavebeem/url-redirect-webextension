@@ -8,22 +8,6 @@ const app = new Vue({
   el: "#app",
 
   data: {
-    css: {
-      h2: "normal",
-      th: "tl normal pv1",
-      card: "flex",
-      table: "collapse mv4 dt--fixed",
-      row: "b--black-10 bb",
-      label: "db b mt3 nb2",
-      checkbox:
-        "Checkbox Focus-Border w2 h2 br1 ba b--black-20 bg-white input-reset",
-      input:
-        "input-reset button-reset f6 border-box db w-100 code ba b--black-20 br1 mv2 pa2 Focus-Border h2",
-      add:
-        "input-reset button-reset b db bg-moon-gray black b--transparent ba br2 mv2 ph3 pv2 Focus-Border hover-bg-light-silver",
-      remove:
-        "input-reset button-reset b db bg-transparent ba b--transparent br1 mv2 Focus-Border hover-bg-washed-red w2 h2 Remove"
-    },
     config: page.getConfig()
   },
 
@@ -46,6 +30,16 @@ const app = new Vue({
 
     removeRedirectByIndex(index) {
       this.config.redirectRules.splice(index, 1);
+    },
+
+    showImportDialog() {
+      // TODO
+      prompt("JSON Import");
+    },
+
+    showExportDialog() {
+      // TODO
+      alert(this.configJSON);
     }
   },
 
@@ -60,4 +54,5 @@ app.$watch("configJSON", json => {
   page.updateConfigJSON(json);
 });
 
+// Let's make debugging easier since this is an ES Module
 Object.assign(globalThis, { app, page });
