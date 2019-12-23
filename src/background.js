@@ -188,7 +188,7 @@ const handlers = {
       return {};
     }
     const { url, tabId } = event;
-    for (const obj of config.redirect) {
+    for (const obj of config.redirectRules) {
       const match = matchURL(obj.fromPattern, url);
       if (match) {
         const data = getTabData(tabId);
@@ -208,7 +208,7 @@ const handlers = {
       return {};
     }
     const { url, responseHeaders, tabId } = event;
-    const matches = config.removeCSP.some(obj => {
+    const matches = config.removeCSPRules.some(obj => {
       return matchOrigin(obj.originPattern, url);
     });
     if (!matches) {
@@ -253,8 +253,10 @@ function getConfig() {
     return {
       configSchemaVersion: 1,
       enabled: true,
-      removeCSP: [{ enabled: true, originPattern: "*://*.meridianapps.com" }],
-      redirect: [
+      removeCSPRules: [
+        { enabled: true, originPattern: "*://*.meridianapps.com" }
+      ],
+      redirectRules: [
         {
           enabled: true,
           fromPattern:

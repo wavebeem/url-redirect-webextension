@@ -5,18 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>URL Switcher</title>
-    <link rel="stylesheet" href="../lib/tachyons-4.10.0.min.css" />
+    <!-- <link rel="stylesheet" href="../lib/tachyons-4.10.0.min.css" /> -->
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body
-    class="helvetica lh-copy near-black bg-near-white f5 overflow-container"
-  >
+  <body>
     <div id="app">
       <header class="Header">
-        <h1 class="Content mv0 lh-title H1">URL Switcher</h1>
-        <p class="Content mv0">
+        <h1 class="Content MarginV-0 H1">URL Switcher</h1>
+        <p class="Content MarginV-0">
           &copy; 2019
-          <a href="https://mockbrian.com" class="black hover-gray"
+          <a href="https://mockbrian.com" class="Link-Black"
             >Brian Mock</a
           >
         </p>
@@ -25,7 +23,7 @@
           bypass the browser cache via a setting in the DevTools, as well as
           holding Shift while refreshing the page.
         </p>
-        <div class="Content flex">
+        <div class="Content Flex-Row">
           <input
             id="config-enabled"
             type="checkbox"
@@ -35,10 +33,10 @@
           <label for="config-enabled" class="Label">Enable URL Switcher</label>
         </div>
       </header>
-      <main class="center mw7" v-if="config.enabled">
+      <main v-if="config.enabled">
         <section>
           <h2 class="H2">Import / Export Settings</h2>
-          <div class="flex">
+          <div class="Flex-Row">
             <button class="Button Focus-Border" type="button">Import...</button>
             <div class="PaddingLeft-Separator"></div>
             <button class="Button Focus-Border" type="button">Export...</button>
@@ -52,8 +50,8 @@
             <code>https://google.com</code> This will disable CSP on google.com,
             but not mail.google.com, and only when using HTTPS, not plain HTTP.
           </p>
-          <div class="Card" v-for="(obj, index) in config.removeCSP">
-            <div class="flex">
+          <div class="Card" v-for="(obj, index) in config.removeCSPRules">
+            <div class="Flex-Row">
               <input
                 v-bind:id="'removeCSP-enabled-' + index"
                 type="checkbox"
@@ -63,7 +61,7 @@
               <label v-bind:for="'removeCSP-enabled-' + index" class="Label"
                 >Enabled</label
               >
-              <div class="flex-auto"></div>
+              <div class="Flex-Auto"></div>
               <button
                 aria-label="Remove redirect rule"
                 class="Remove Focus-Border"
@@ -98,17 +96,17 @@
         <section>
           <h2 class="H2">Redirect URL Rules</h2>
           <p>
-            Pattern matching is allowed for URLs. You can use <code>*</code> to
-            match a URL chunk (a protocol, subdomain, section of a path, or a
-            query string key or value).
+            TODO: Pattern matching is allowed for URLs. You can use
+            <code>*</code> to match a URL chunk (a protocol, subdomain, section
+            of a path, or a query string key or value).
           </p>
           <p>
             You can also use <code>{name}</code> to capture the value from the
             pattern matched. You can use this value in the "To" field by using
             the same syntax. You can use as many names as you want.
           </p>
-          <div v-for="(obj, index) in config.redirect" class="Card">
-            <div class="flex">
+          <div v-for="(obj, index) in config.redirectRules" class="Card">
+            <div class="Flex-Row">
               <input
                 v-bind:id="'redirect-enabled-' + index"
                 type="checkbox"
@@ -118,7 +116,7 @@
               <label v-bind:for="'redirect-enabled-' + index" class="Label"
                 >Enabled</label
               >
-              <div class="flex-auto"></div>
+              <div class="Flex-Auto"></div>
               <button
                 aria-label="Remove redirect rule"
                 class="Remove Focus-Border"
@@ -128,7 +126,7 @@
                 Remove
               </button>
             </div>
-            <div class="flex-auto PaddingLeft Field">
+            <div class="Flex-Auto PaddingLeft Field">
               <label
                 v-bind:for="'redirect-from-' + index"
                 class="Label Label-Field"
@@ -140,7 +138,7 @@
                 v-model="obj.fromPattern"
               />
             </div>
-            <div class="flex-auto PaddingLeft Field">
+            <div class="Flex-Auto PaddingLeft Field">
               <label
                 v-bind:for="'redirect-to-' + index"
                 class="Label Label-Field"

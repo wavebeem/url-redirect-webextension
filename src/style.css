@@ -1,4 +1,6 @@
 :root {
+  --Color-BodyFG: #111;
+  --Color-BodyBG: #f4f4f4;
   --Color-ButtonBG: hsla(240, 10%, 10%, 0.1);
   --Color-ButtonBGHover: hsla(240, 10%, 10%, 0.15);
   --Color-Separator: hsl(240, 10%, 90%);
@@ -7,24 +9,60 @@
   --Color-Focus: hsl(210, 70%, 50%);
   --Color-FocusOutline: hsl(210, 100%, 80%);
 
-  --Rem-1-4: 0.25rem;
   --Rem-1-8: 0.125rem;
   --Rem-1-16: 0.0625rem;
 
-  --Checkbox-Size: 2rem;
-  --Button-Height: 2rem;
-  --Input-Height: 2rem;
+  --Field-Height: 2rem;
+  --Content-Width: 48rem;
+}
+
+.Flex-Row {
+  display: flex;
+  flex-direction: row;
+}
+
+.Flex-Auto {
+  flex: 1 1 auto;
 }
 
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
+  line-height: 1.5;
+  background: var(--Color-BodyBG);
+  color: var(--Color-BodyFG);
+  overflow-y: scroll;
+}
+
+button,
+input {
+  font: inherit;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+main {
+  margin: 0 auto;
+  max-width: var(--Content-Width);
 }
 
 .Table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
+}
+
+.MarginV-0 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.Link-Black {
+  color: #000;
+}
+
+.Link-Black:hover {
+  color: #777;
 }
 
 .Th {
@@ -34,14 +72,19 @@ body {
 
 .H1 {
   font-weight: normal;
+  margin: 0 auto;
+  line-height: 1.25;
 }
 
 .H2 {
   font-weight: normal;
   border-top: 1px solid var(--Color-Separator);
   padding-top: 1rem;
+  line-height: 1.25;
 }
 
+code,
+pre,
 .Monospace {
   font-family: "Input", "Menlo", monospace;
   font-size: 0.9rem;
@@ -56,7 +99,7 @@ body {
 .Content {
   margin-left: auto;
   margin-right: auto;
-  max-width: 48rem;
+  max-width: var(--Content-Width);
 }
 
 .Card {
@@ -68,6 +111,7 @@ body {
 .Label-Field {
   min-width: 3rem;
   padding-right: 1rem;
+  text-align: right;
 }
 
 .Field {
@@ -89,7 +133,7 @@ body {
 
 .Input {
   box-sizing: border-box;
-  height: var(--Input-Height);
+  height: var(--Field-Height);
   width: 100%;
   border: 1px solid var(--Color-Border);
   padding: 0.5rem;
@@ -102,7 +146,7 @@ body {
 
 .Button {
   font: inherit;
-  height: var(--Button-Height);
+  height: var(--Field-Height);
   padding: 0.25rem 1rem;
   border: 1px solid transparent;
   background: var(--Color-ButtonBG);
@@ -128,14 +172,14 @@ body {
 
 .Checkbox + .Label {
   padding-left: 0.5rem;
-  height: var(--Checkbox-Size);
+  height: var(--Field-Height);
 }
 
 .Checkbox {
   -webkit-appearance: none;
   -moz-appearance: none;
-  width: var(--Checkbox-Size);
-  height: var(--Checkbox-Size);
+  width: var(--Field-Height);
+  height: var(--Field-Height);
   border-radius: 2px;
   background: white;
   border: 1px solid var(--Color-Border);
@@ -157,7 +201,8 @@ body {
 }
 
 .Label {
-  line-height: 2rem;
+  height: var(--Field-Height);
+  line-height: var(--Field-Height);
   user-select: none;
   display: inline-block;
 }

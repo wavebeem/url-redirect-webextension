@@ -29,15 +29,15 @@ const app = new Vue({
 
   methods: {
     addCSP() {
-      this.config.removeCSP.push({ originPattern: "", enabled: true });
+      this.config.removeCSPRules.push({ originPattern: "", enabled: true });
     },
 
     removeCSPByIndex(index) {
-      this.config.removeCSP.splice(index, 1);
+      this.config.removeCSPRules.splice(index, 1);
     },
 
     addRedirect() {
-      this.config.redirect.push({
+      this.config.redirectRules.push({
         fromPattern: "",
         toPattern: "",
         enabled: true
@@ -45,7 +45,7 @@ const app = new Vue({
     },
 
     removeRedirectByIndex(index) {
-      this.config.redirect.splice(index, 1);
+      this.config.redirectRules.splice(index, 1);
     }
   },
 
