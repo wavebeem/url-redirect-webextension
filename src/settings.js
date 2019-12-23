@@ -52,20 +52,20 @@ export const app = new Vue({
       this.settings.redirectRules.splice(index, 1);
     },
 
-    showImportDialog() {
+    showImportModal() {
       this.isImportModalVisible = true;
     },
 
-    showExportDialog() {
+    showExportModal() {
       this.isExportModalVisible = true;
     },
 
-    hideImportDialog() {
+    hideImportModal() {
       this.isImportModalVisible = false;
       this.importSettingsJSON = "";
     },
 
-    hideExportDialog() {
+    hideExportModal() {
       this.isExportModalVisible = false;
     }
   },
