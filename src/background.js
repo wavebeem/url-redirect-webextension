@@ -170,10 +170,7 @@ function getTabData(tabId) {
 
 const handlers = {
   onClicked() {
-    browser.tabs.create({
-      url: browser.runtime.getURL("src/settings.html")
-      // url: "/src/settings.html"
-    });
+    browser.tabs.create({ url: browser.runtime.getURL("src/settings.html") });
   },
 
   onUpdated(tabId, changeInfo /*, tab */) {
