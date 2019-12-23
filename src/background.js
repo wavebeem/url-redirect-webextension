@@ -148,11 +148,20 @@ function matchURL(pattern, target) {
 }
 
 function updateTabBadge(tabId, tabData) {
+  console.log(`update tab ${tabId}`, tabData);
   const { cspDisabled, redirectCount } = tabData;
   const text = String(redirectCount);
   const color = cspDisabled ? "#c00" : "#444";
+  const title = [
+    redirectCount === 1 ? "1 redirect" : `${redirectCount} redirects`,
+    cspDisabled ? "CSP disabled" : "",
+    `URL Switcher is ${settings.enabled ? "enabled" : "disabled"}`
+  ]
+    .filter(x => x)
+    .join(" | ");
   browser.browserAction.setBadgeText({ text, tabId });
   browser.browserAction.setBadgeBackgroundColor({ color, tabId });
+  browser.browserAction.setTitle({ title, tabId });
 }
 
 function getTabData(tabId) {
@@ -188,13 +197,16 @@ const handlers = {
       return {};
     }
     const { url, tabId } = event;
-    for (const obj of settings.redirectRules) {
-      const match = matchURL(obj.fromPattern, url);
+    for (const rule of settings.redirectRules) {
+      if (!rule.enabled) {
+        continue;
+      }
+      const match = matchURL(rule.fromPattern, url);
       if (match) {
         const data = getTabData(tabId);
         data.redirectCount++;
         updateTabBadge(tabId, data);
-        return { redirectUrl: replaceURL(obj.toPattern, match) };
+        return { redirectUrl: replaceURL(rule.toPattern, match) };
       }
     }
     return {};
@@ -208,8 +220,8 @@ const handlers = {
       return {};
     }
     const { url, responseHeaders, tabId } = event;
-    const matches = settings.removeCSPRules.some(obj => {
-      return matchOrigin(obj.originPattern, url);
+    const matches = settings.removeCSPRules.some(rule => {
+      return rule.enabled && matchOrigin(rule.originPattern, url);
     });
     if (!matches) {
       return {};
@@ -242,9 +254,21 @@ browser.tabs.onRemoved.addListener(handlers.onRemoved);
 browser.tabs.onUpdated.addListener(handlers.onUpdated);
 browser.browserAction.onClicked.addListener(handlers.onClicked);
 
+function updateBrowserAction() {
+  browser.browserAction.setTitle({
+    title: settings.enabled
+      ? "URL Switcher is enabled"
+      : "URL Switcher is disabled"
+  });
+  initializeTabData().catch(err => {
+    console.error(err);
+  });
+}
+
 function updateSettingsJSON(json) {
   localStorage.setItem("settings", json);
   settings = getSettings();
+  updateBrowserAction();
 }
 
 function getDefaultSettings() {
@@ -306,3 +330,14 @@ function getSettings() {
 }
 
 let settings = getSettings();
+
+async function initializeTabData() {
+  tabData.clear();
+  for (const tab of await browser.tabs.query({})) {
+    console.log(`tab ${tab.id}`, getTabData(tab.id));
+  }
+}
+
+initializeTabData().catch(err => {
+  console.error(err);
+});
