@@ -16,8 +16,8 @@
           <a href="https://mockbrian.com" class="Link-Black">Brian Mock</a>
         </p>
         <p class="Content">
-          TODO: Note that the browser cache can interfere with URL Switcher. You can
-          bypass the browser cache via a setting in the DevTools, as well as
+          TODO: Note that the browser cache can interfere with URL Switcher. You
+          can bypass the browser cache via a setting in the DevTools, as well as
           holding Shift while refreshing the page.
         </p>
         <div class="Content Flex-Row">
@@ -30,6 +30,7 @@
           <label for="config-enabled" class="Label">Enable URL Switcher</label>
         </div>
       </header>
+
       <main v-if="config.enabled">
         <section>
           <h2 class="H2">Import / Export Settings</h2>
@@ -37,7 +38,7 @@
             <button
               class="Button Focus-Border"
               type="button"
-              v-on:click="showImportDialog"
+              v-on:click="showImportDialog()"
             >
               Import...
             </button>
@@ -45,7 +46,7 @@
             <button
               class="Button Focus-Border"
               type="button"
-              v-on:click="showExportDialog"
+              v-on:click="showExportDialog()"
             >
               Export...
             </button>
@@ -68,16 +69,16 @@
                 class="Checkbox Focus-Border"
               />
               <label v-bind:for="'removeCSP-enabled-' + index" class="Label"
-                >Enabled</label
+                >Enable Rule</label
               >
               <div class="Flex-Auto"></div>
               <button
                 aria-label="Remove redirect rule"
-                class="Remove Focus-Border"
+                class="TextButton Color-Red Focus-Border"
                 type="button"
                 v-on:click="removeCSPByIndex(index)"
               >
-                Remove
+                Remove Rule
               </button>
             </div>
             <div class="PaddingLeft Field">
@@ -123,16 +124,16 @@
                 class="Checkbox Focus-Border"
               />
               <label v-bind:for="'redirect-enabled-' + index" class="Label"
-                >Enabled</label
+                >Enable Rule</label
               >
               <div class="Flex-Auto"></div>
               <button
                 aria-label="Remove redirect rule"
-                class="Remove Focus-Border"
+                class="TextButton Color-Red Focus-Border"
                 type="button"
                 v-on:click="removeRedirectByIndex(index)"
               >
-                Remove
+                Remove Rule
               </button>
             </div>
             <div class="Flex-Auto PaddingLeft Field">
@@ -169,6 +170,40 @@
           </button>
         </section>
       </main>
+
+      <div class="Modal" v-bind:hidden="!isImportModalVisible">
+        <div class="Modal-Body Flex-Column">
+          <h3 class="H3">Import Settings</h3>
+          <textarea
+            class="TextArea Monospace Flex-Auto Focus-Border"
+            ref="importConfigJSON"
+            v-model="importConfigJSON"
+            placeholder="Paste settings JSON here..."
+          ></textarea>
+          <div class="Flex-Row PaddingTop-Separator">
+            <div class="Flex-Auto"></div>
+            <button
+              type="button"
+              class="TextButton Focus-Border"
+              v-on:click="hideImportDialog()"
+            >
+              Cancel
+            </button>
+            <div class="PaddingLeft-Separator"></div>
+            <button
+              type="button"
+              class="Button Focus-Border"
+              v-on:click="doImport()"
+            >
+              Import
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="Modal" v-bind:hidden="!isExportModalVisible">
+        Export
+      </div>
     </div>
     <script src="../lib/webextension-polyfill-0.5.0.min.js"></script>
     <script type="module" src="configure.js"></script>

@@ -2,16 +2,29 @@
 
 import Vue from "../lib/vue-2.6.11.min.js";
 
-const page = browser.extension.getBackgroundPage();
+export const page = browser.extension.getBackgroundPage();
 
-const app = new Vue({
+export const app = new Vue({
   el: "#app",
 
   data: {
+    importConfigJSON: "",
+    isImportModalVisible: false,
+    isExportModalVisible: false,
     config: page.getConfig()
   },
 
   methods: {
+    doImport() {
+      // TODO
+      alert(this.importConfig);
+      page.updateConfigJSON(this.importConfigJSON);
+    },
+
+    copyConfig() {
+      // TODO
+    },
+
     addCSP() {
       this.config.removeCSPRules.push({ originPattern: "", enabled: true });
     },
@@ -33,13 +46,19 @@ const app = new Vue({
     },
 
     showImportDialog() {
-      // TODO
-      prompt("JSON Import");
+      this.isImportModalVisible = true;
     },
 
     showExportDialog() {
-      // TODO
-      alert(this.configJSON);
+      this.isExportModalVisible = true;
+    },
+
+    hideImportDialog() {
+      this.isImportModalVisible = false;
+    },
+
+    hideExportDialog() {
+      this.isExportModalVisible = false;
     }
   },
 
@@ -50,8 +69,20 @@ const app = new Vue({
   }
 });
 
-app.$watch("configJSON", json => {
+app.$watch("configJSON", function(json) {
   page.updateConfigJSON(json);
+});
+
+app.$watch("isImportModalVisible", function(isImportModalVisible) {
+  if (isImportModalVisible) {
+    this.$refs.importConfigJSON.focus();
+  }
+});
+
+app.$watch("isExportModalVisible", function(isExportModalVisible) {
+  if (isExportModalVisible) {
+    this.$refs.exportConfig.focus();
+  }
 });
 
 // Let's make debugging easier since this is an ES Module

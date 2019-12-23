@@ -1,4 +1,6 @@
 :root {
+  --Color-ModalBackdrop: hsla(0, 0%, 100%, 0.75);
+  --Color-Red: hsl(0, 80%, 45%);
   --Color-Link: #000;
   --Color-LinkHover: #777;
   --Color-BodyFG: #111;
@@ -34,11 +36,19 @@ body {
   min-width: 600px;
 }
 
+textarea,
 button,
 input {
   font: inherit;
   box-sizing: border-box;
   margin: 0;
+}
+
+textarea::-moz-focus-inner,
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
 }
 
 main {
@@ -49,6 +59,11 @@ main {
 .Flex-Row {
   display: flex;
   flex-direction: row;
+}
+
+.Flex-Column {
+  display: flex;
+  flex-direction: column;
 }
 
 .Flex-Auto {
@@ -86,6 +101,21 @@ main {
   padding-top: 1rem;
   line-height: 1.25;
   margin: 1rem 0;
+}
+
+.H3 {
+  font-weight: normal;
+  line-height: 1.25;
+  margin: 1rem 0;
+}
+
+.TextArea {
+  /* TODO */
+  min-height: calc(2 * var(--Field-Height));
+  width: 100%;
+  border: 1px solid var(--Color-Border);
+  padding: 0.5rem;
+  border-radius: 2px;
 }
 
 code,
@@ -134,8 +164,11 @@ pre,
   padding-left: 1rem;
 }
 
+.PaddingTop-Separator {
+  padding-top: 1rem;
+}
+
 .Input {
-  box-sizing: border-box;
   height: var(--Field-Height);
   width: 100%;
   border: 1px solid var(--Color-Border);
@@ -148,7 +181,6 @@ pre,
 }
 
 .Button {
-  font: inherit;
   height: var(--Field-Height);
   padding: 0.25rem 1rem;
   border: 1px solid transparent;
@@ -160,17 +192,16 @@ pre,
   background: var(--Color-ButtonBGHover);
 }
 
-.Remove {
+.TextButton {
   height: var(--Field-Height);
-  color: hsl(0, 100%, 40%);
-  background: transparent;
+  padding: 0.25rem 1rem;
   border: 1px solid transparent;
+  background: transparent;
   border-radius: 2px;
 }
 
-.Remove:hover {
-  border-color: hsl(0, 80%, 85%);
-  background-color: hsl(0, 80%, 95%);
+.TextButton:hover {
+  background-color: var(--Color-ButtonBG);
 }
 
 .Checkbox + .Label {
@@ -206,9 +237,49 @@ pre,
   display: inline-block;
 }
 
+.Modal[hidden] {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.Modal[hidden] > .Modal-Body {
+  transform: scale(0.98);
+}
+
+.Modal {
+  transition: opacity 200ms ease;
+  background: var(--Color-ModalBackdrop);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: start;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Modal-Body {
+  transition: transform 200ms ease;
+  margin-top: var(--Field-Height);
+  background: var(--Color-BodyBG);
+  color: var(--Color-BodyFG);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 2px 4px hsla(0, 0%, 0%, 0.1),
+    0 4px 8px hsla(0, 0%, 0%, 0.2);
+  padding: 1rem;
+  min-width: 600px;
+  min-height: 300px;
+}
+
 .MarginV-0 {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.Color-Red {
+  color: var(--Color-Red);
 }
 
 .Focus-Border:focus {

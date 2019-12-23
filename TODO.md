@@ -6,6 +6,8 @@
 - [ ] Make an icon for when it's disabled too
 - [x] Make a settings page (Vue.js?)
 - [ ] Import/export settings, schema validation
+- [ ] Settings+Config -> Settings
+- [ ] Modal+Dialog -> Dialog
 - [x] Make a match/replace engine
 
 Given we only get 4 characters in a badge, I think a symbol to show if CSP was disabled is sufficient, as well as a count of blocked files, capping at 99+
