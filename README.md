@@ -1,4 +1,4 @@
-<img width="32" height="32" src="img/icon-enabled.svg" align="left">
+<img width="32" height="32" src="img/icon-enabled.svg" align="right">
 
 # URL Switcher
 
