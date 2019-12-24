@@ -150,12 +150,12 @@ pre,
   border-bottom: 1px solid var(--Color-Separator);
 }
 
-.PaddingLeft {
-  padding-left: 2.5rem;
+.PaddingLeft-Indent {
+  padding-left: 2rem;
 }
 
 .PaddingLeft-Separator {
-  padding-left: 1rem;
+  padding-left: 0.5rem;
 }
 
 .Logo {
