@@ -22,8 +22,8 @@
 
   "background": {
     "scripts": [
-      "lib/webextension-polyfill-0.5.0.min.js",
-      "lib/parsimmon-1.13.0.min.js",
+      "lib/webextension-polyfill.js",
+      "lib/parsimmon.js",
       "src/background.js"
     ]
   },

@@ -1,7 +1,5 @@
 "use strict";
 
-import Vue from "../lib/vue-2.6.11.min.js";
-
 export const page = browser.extension.getBackgroundPage();
 
 export const app = new Vue({
