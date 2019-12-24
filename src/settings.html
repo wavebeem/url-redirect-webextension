@@ -71,12 +71,12 @@
             <code>https://google.com</code> This will disable CSP on google.com,
             but not mail.google.com, and only when using HTTPS, not plain HTTP.
           </p>
-          <div class="Card" v-for="(obj, index) in settings.removeCSPRules">
+          <div class="Card" v-for="(rule, index) in settings.removeCSPRules">
             <div class="Flex-Row">
               <input
                 v-bind:id="'removeCSP-enabled-' + index"
                 type="checkbox"
-                v-model="obj.enabled"
+                v-model="rule.enabled"
                 class="Checkbox Focus-Border"
               />
               <label v-bind:for="'removeCSP-enabled-' + index" class="Label"
@@ -102,7 +102,7 @@
                 aria-label="Origin Pattern"
                 v-bind:id="'removeCSP-origin-' + index"
                 class="Input Focus-Border Monospace"
-                v-model="obj.originPattern"
+                v-model="rule.originPattern"
               />
             </div>
           </div>
@@ -126,12 +126,12 @@
             pattern matched. You can use this value in the "To" field by using
             the same syntax. You can use as many names as you want.
           </p>
-          <div v-for="(obj, index) in settings.redirectRules" class="Card">
+          <div v-for="(rule, index) in settings.redirectRules" class="Card">
             <div class="Flex-Row">
               <input
                 v-bind:id="'redirect-enabled-' + index"
                 type="checkbox"
-                v-model="obj.enabled"
+                v-model="rule.enabled"
                 class="Checkbox Focus-Border"
               />
               <label v-bind:for="'redirect-enabled-' + index" class="Label"
@@ -156,7 +156,7 @@
               <input
                 v-bind:id="'redirect-from-' + index"
                 class="Input Focus-Border Monospace"
-                v-model="obj.fromPattern"
+                v-model="rule.fromPattern"
               />
             </div>
             <div class="Flex-Auto PaddingLeft Field">
@@ -168,7 +168,7 @@
               <input
                 v-bind:id="'redirect-to-' + index"
                 class="Input Focus-Border Monospace"
-                v-model="obj.toPattern"
+                v-model="rule.toPattern"
               />
             </div>
           </div>
