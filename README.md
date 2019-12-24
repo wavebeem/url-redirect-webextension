@@ -1,4 +1,4 @@
-<a href="https://github.com/wavebeem/url-switcher-webextension"><img width="64" height="64" src="img/icon-enabled.svg" align="right"></a>
+<img width="32" height="32" src="img/icon-enabled.svg" align="left">
 
 # URL Switcher
 
