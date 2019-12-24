@@ -72,10 +72,8 @@ main {
   flex: 1 1 auto;
 }
 
-.Table {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
+.Examples {
+  margin: 1rem 2rem;
 }
 
 .Link-Black {
@@ -84,11 +82,6 @@ main {
 
 .Link-Black:hover {
   color: var(--Color-LinkHover);
-}
-
-.Th {
-  font-weight: normal;
-  text-align: left;
 }
 
 .H1 {

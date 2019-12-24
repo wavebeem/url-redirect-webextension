@@ -25,16 +25,10 @@
           <a href="https://mockbrian.com" class="Link-Black">Brian Mock</a>
         </p>
         <p>
-          URL Switcher can be used to switch one URL with another. It is
-          intended to be a tool to help developers debug production applications
-          by injecting their own code into another site. You can also disable
-          Content-Security-Policy (CSP) based on origin (protocol, domain, and
-          port number).
-        </p>
-        <p>
-          Note that the browser cache can interfere with URL Switcher. You can
-          bypass the browser cache via a setting in the DevTools, as well as
-          holding Shift while refreshing the page.
+          URL Switcher can be used to switch one URL with another. You can use
+          it to debug tricky production issues with your websites. The browser
+          cache can interfere with URL Switcher. You can disable the cache via
+          DevTools or holding Shift while refreshing.
         </p>
         <div class="Flex-Row">
           <input
@@ -73,11 +67,33 @@
         <section>
           <h2 class="H2">Remove CSP Rules</h2>
           <p>
-            TODO: Explain Content-Security-Policy and why you would disable it
-            Examples:
-            <code>https://google.com</code> This will disable CSP on google.com,
-            but not mail.google.com, and only when using HTTPS, not plain HTTP.
+            Content-Security-Policy (CSP) allows website authors to block
+            content unless it is from certain safelisted sources. This is a
+            great security feature, but it can make it difficult to use URL
+            Switcher. If you see a message about content being blocked, you
+            should add the origin to the rules below.
           </p>
+          <h3 class="H3">Examples</h3>
+          <blockquote class="Examples">
+            <p>
+              <code><b>Origin</b> https://google.com</code><br />
+              This will disable CSP on
+              <code>google.com</code>, but not <code>mail.google.com</code>, and
+              only when using HTTPS, not plain HTTP.
+            </p>
+            <p>
+              <code><b>Origin</b> *://*.github.io</code><br />
+              This will disable CSP on any direct subdomain of
+              <code>github.io</code>, over HTTP or HTTPS.
+            </p>
+            <p>
+              <code><b>Origin</b> *://*.example.com</code><br />
+              This will match
+              <code>https://banana.example.com</code> but not
+              <code>https://example.com</code> or
+              <code>https://chocolate.pudding.example.com</code>.
+            </p>
+          </blockquote>
           <div class="Card" v-for="(rule, index) in settings.removeCSPRules">
             <div class="Flex-Row">
               <input
@@ -121,18 +137,38 @@
             Add CSP Rule
           </button>
         </section>
+
         <section>
           <h2 class="H2">Redirect URL Rules</h2>
           <p>
-            TODO: Pattern matching is allowed for URLs. You can use
-            <code>*</code> to match a URL chunk (a protocol, subdomain, section
-            of a path, or a query string key or value).
+            You can use <code>*</code> to match and ignore URL components, or
+            <code>{name}</code> to match components and give them names, letting
+            you reuse that text in the "to" field.
           </p>
-          <p>
-            You can also use <code>{name}</code> to capture the value from the
-            pattern matched. You can use this value in the "To" field by using
-            the same syntax. You can use as many names as you want.
-          </p>
+          <h3 class="H3">Examples</h3>
+          <blockquote>
+            <p>
+              <code
+                ><b>From</b>
+                *://cdnjs.cloudflare.com/ajax/libs/jquery/{version}/jquery.min.js</code
+              ><br />
+              <code
+                ><b>&nbsp;&nbsp;To</b>
+                https://cdnjs.cloudflare.com/ajax/libs/jquery/{version}/jquery.js</code
+              ><br />
+              This will cause jQuery loaded from cdnjs to never use the minified
+              version.
+            </p>
+            <p>
+              <code><b>From</b> https://production.mywebsite.com/js/{file}</code
+              ><br />
+              <code><b>&nbsp;&nbsp;To</b> http://localhost:8000/js/{file}</code
+              ><br />
+              This will let you debug a production website using code from your
+              local computer. This can be useful for testing bugs you are unable
+              to reproduce on your local machine.
+            </p>
+          </blockquote>
           <div v-for="(rule, index) in settings.redirectRules" class="Card">
             <div class="Flex-Row">
               <input

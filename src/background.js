@@ -135,9 +135,6 @@ function matchURL(pattern, target) {
       ...pathnameMatch,
       ...searchMatch
     };
-    if (Object.keys(match).length === 0) {
-      return undefined;
-    }
     return match;
   } catch (err) {
     if (err.type === "ParsimmonError") {
@@ -253,20 +250,21 @@ browser.tabs.onRemoved.addListener(handlers.onRemoved);
 browser.tabs.onUpdated.addListener(handlers.onUpdated);
 browser.browserAction.onClicked.addListener(handlers.onClicked);
 
+const enabledIcons = {
+  16: browser.runtime.getURL("img/icon-enabled.png"),
+  32: browser.runtime.getURL("img/icon-enabled@2x.png")
+};
+const disabledIcons = {
+  16: browser.runtime.getURL("img/icon-disabled.png"),
+  32: browser.runtime.getURL("img/icon-disabled@2x.png")
+};
+
 function updateBrowserAction() {
   browser.browserAction.setTitle({
     title: settings.enabled
       ? "URL Switcher is enabled"
       : "URL Switcher is disabled"
   });
-  const enabledIcons = {
-    16: browser.runtime.getURL("img/icon-enabled.png"),
-    32: browser.runtime.getURL("img/icon-enabled@2x.png")
-  };
-  const disabledIcons = {
-    16: browser.runtime.getURL("img/icon-disabled.png"),
-    32: browser.runtime.getURL("img/icon-disabled@2x.png")
-  };
   browser.browserAction.setIcon({
     path: settings.enabled ? enabledIcons : disabledIcons
   });
@@ -285,19 +283,8 @@ function getDefaultSettings() {
   return sanitizedSettings({
     settingsSchemaVersion: 1,
     enabled: true,
-    removeCSPRules: [{ enabled: true, originPattern: "*://*.example.com" }],
-    redirectRules: [
-      {
-        enabled: true,
-        fromPattern: "https://example.com/{version}/jquery.min.js",
-        toPattern: "https://example.com/{version}/jquery.js"
-      },
-      {
-        enabled: false,
-        fromPattern: "https://example.com/js/{file}",
-        toPattern: "https://localhost:8000/{file}"
-      }
-    ]
+    removeCSPRules: [],
+    redirectRules: []
   });
 }
 
