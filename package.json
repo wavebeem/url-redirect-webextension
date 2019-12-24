@@ -5,7 +5,7 @@
   "description": "A WebExtension (Firefox, Chrome) for redirecting URLs",
   "scripts": {
     "start:ff": "web-ext run",
-    "build": "web-ext build -i node_modules -i .gitignore -i '*.{afdesign,md,json}' --overwrite-dest",
+    "build": "web-ext build -i node_modules -i .gitignore -i '*.{afdesign,md}' -i package.json -i package-lock.json --overwrite-dest",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
