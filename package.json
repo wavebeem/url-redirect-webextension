@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "url-switcher-webextension",
+  "name": "url-redirect-webextension",
   "version": "1.0.0",
   "description": "A WebExtension (Firefox, Chrome) for redirecting URLs",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wavebeem/url-switcher-webextension.git"
+    "url": "git+https://github.com/wavebeem/url-redirect-webextension.git"
   },
   "keywords": [
     "webextension",
@@ -20,9 +20,9 @@
   "author": "Brian Mock <brian@mockbrian.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wavebeem/url-switcher-webextension/issues"
+    "url": "https://github.com/wavebeem/url-redirect-webextension/issues"
   },
-  "homepage": "https://github.com/wavebeem/url-switcher-webextension#readme",
+  "homepage": "https://github.com/wavebeem/url-redirect-webextension#readme",
   "devDependencies": {
     "prettier": "^1.19.1",
     "web-ext": "^3.2.1"

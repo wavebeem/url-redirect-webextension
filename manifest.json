@@ -1,13 +1,13 @@
 {
   "manifest_version": 2,
-  "description": "URL Switcher allows you to redirect one URL to another",
-  "name": "url-switcher",
+  "description": "URL Redirect allows you to redirect one URL to another",
+  "name": "URL Redirect for Developers",
   "version": "1.0",
-  "homepage_url": "https://github.com/wavebeem/url-switcher-webextension",
+  "homepage_url": "https://github.com/wavebeem/url-redirect-webextension",
 
   "applications": {
     "gecko": {
-      "id": "url-switcher@mockbrian.com"
+      "id": "url-redirect@mockbrian.com"
     }
   },
 
@@ -29,7 +29,7 @@
   },
 
   "browser_action": {
-    "default_title": "URL Switcher",
+    "default_title": "URL Redirect",
     "default_icon": {
       "16": "img/icon-enabled.png",
       "32": "img/icon-enabled@2x.png"

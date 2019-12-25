@@ -151,7 +151,7 @@ function updateTabBadge(tabId, tabData) {
   const title = [
     redirectCount === 1 ? "1 redirect" : `${redirectCount} redirects`,
     cspDisabled ? "CSP disabled" : "",
-    `URL Switcher is ${settings.enabled ? "enabled" : "disabled"}`
+    `URL Redirect is ${settings.enabled ? "enabled" : "disabled"}`
   ]
     .filter(x => x)
     .join(" | ");
@@ -262,8 +262,8 @@ const disabledIcons = {
 function updateBrowserAction() {
   browser.browserAction.setTitle({
     title: settings.enabled
-      ? "URL Switcher is enabled"
-      : "URL Switcher is disabled"
+      ? "URL Redirect is enabled"
+      : "URL Redirect is disabled"
   });
   browser.browserAction.setIcon({
     path: settings.enabled ? enabledIcons : disabledIcons
