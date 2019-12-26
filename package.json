@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "url-redirect-webextension",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A WebExtension (Firefox, Chrome) for redirecting URLs",
   "scripts": {
     "start:ff": "web-ext run",
