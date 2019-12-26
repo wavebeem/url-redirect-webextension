@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "description": "URL Redirect allows you to redirect one URL to another",
   "name": "URL Redirect for Developers",
-  "version": "1.1",
+  "version": "1.0",
   "homepage_url": "https://github.com/wavebeem/url-redirect-webextension",
 
   "applications": {

@@ -1,11 +1,13 @@
 "use strict";
 
 export const page = browser.extension.getBackgroundPage();
+export const manifest = browser.runtime.getManifest();
 
 export const app = new Vue({
   el: "#app",
 
   data: {
+    version: manifest.version,
     isCopiedMessageVisible: false,
     importSettingsJSON: "",
     isImportModalVisible: false,
