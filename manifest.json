@@ -13,7 +13,8 @@
 
   "icons": {
     "16": "img/icon-enabled.png",
-    "32": "img/icon-enabled@2x.png"
+    "32": "img/icon-enabled@2x.png",
+    "128": "img/icon-enabled@8x.png"
   },
 
   "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"],
