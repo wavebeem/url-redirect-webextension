@@ -178,10 +178,8 @@ const handlers = {
     browser.tabs.create({ url: browser.runtime.getURL("src/settings.html") });
   },
 
-  onUpdated(tabId, changeInfo /*, tab */) {
-    if (changeInfo.status === "complete") {
-      tabData.delete(tabId);
-    }
+  onCommitted(event) {
+    tabData.delete(event.tabId);
   },
 
   onRemoved(event) {
@@ -246,8 +244,8 @@ browser.webRequest.onHeadersReceived.addListener(
   { urls: [targetPage] },
   ["blocking", "responseHeaders"]
 );
+browser.webNavigation.onCommitted.addListener(handlers.onCommitted);
 browser.tabs.onRemoved.addListener(handlers.onRemoved);
-browser.tabs.onUpdated.addListener(handlers.onUpdated);
 browser.browserAction.onClicked.addListener(handlers.onClicked);
 
 const enabledIcons = {

@@ -19,7 +19,12 @@
     "128": "img/icon-enabled@8x.png"
   },
 
-  "permissions": ["webRequest", "webRequestBlocking", "<all_urls>"],
+  "permissions": [
+    "webRequest",
+    "webNavigation",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
 
   "content_security_policy": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'",
 
