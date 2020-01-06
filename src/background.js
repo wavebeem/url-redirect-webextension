@@ -147,7 +147,7 @@ function matchURL(pattern, target) {
 function updateTabBadge(tabId, tabData) {
   const { cspDisabled, redirectCount } = tabData;
   const text = String(redirectCount);
-  const color = cspDisabled ? "#c00" : "#26c";
+  const color = cspDisabled ? "#c00" : "#444";
   const title = [
     redirectCount === 1 ? "1 redirect" : `${redirectCount} redirects`,
     cspDisabled ? "CSP disabled" : "",
@@ -179,7 +179,7 @@ const handlers = {
   },
 
   onCommitted(event) {
-    tabData.delete(event.tabId);
+    getTabData(event.tabId).redirectCount = 0;
   },
 
   onRemoved(event) {
@@ -327,6 +327,7 @@ function getSettings() {
 let settings = getSettings();
 
 async function initializeTabData() {
+  console.log("tabData.clear()");
   tabData.clear();
   for (const tab of await browser.tabs.query({})) {
     getTabData(tab.id);
