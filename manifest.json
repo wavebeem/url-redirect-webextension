@@ -3,7 +3,7 @@
   "description": "Allows you to redirect one URL to another. It is intended to help developers debug issues on production websites.",
   "name": "URL Redirect for Developers",
   "short_name": "URL Redirect",
-  "version": "1.0",
+  "version": "1.1",
   "author": "Brian Mock (mockbrian.com)",
   "homepage_url": "https://github.com/wavebeem/url-redirect-webextension",
 
